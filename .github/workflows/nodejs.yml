@@ -23,10 +23,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: './MatchPlayAPI/package-lock.json'
     - name: MatchPlayAPI
       run: npm ci
       working-directory: ./MatchPlayAPI
-      
-    - name: MatchPlayFrontend
-      run: npm ci
-      working-directory: ./MatchPlayFrontend
