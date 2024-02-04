@@ -1,8 +1,8 @@
-name: MatchPlayAPI CI
+name: MatchPlayFrontend CI
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "develop"` ]
   pull_request:
     branches: [ "develop" ]
 
