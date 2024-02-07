@@ -16,4 +16,6 @@ There are limitations to testing with Expo, and installing Xcode may need to hap
 ## Run the Backend Locally
 
 `cd MatchPlayBackend`
-`npm start`
+`npm run test' - unit tests endpoints
+'npm run dev' - runs the api on nodemon
+'npm run start' - runs the api
