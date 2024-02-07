@@ -5,8 +5,9 @@ const PORT = process.env.PORT || 3000;
 require("dotenv").config();
 
 mongoose
-  .connect(process.env.MONGODB_URI,{dbName:'test'},{collection: 'user_profiles'})
+  .connect(process.env.MONGODB_URI)
   .then(() => {
+    console.log('connected')
     app.listen(PORT, console.log("Server started on port 3000"));
   })
   .catch((err) => {

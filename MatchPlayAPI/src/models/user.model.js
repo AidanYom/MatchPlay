@@ -17,6 +17,7 @@ const userSchema = new Schema(
             required: true
         }
     },
-    // {dbName: 'user-develop'},
-    // { collection: 'test'}
+    { collection: 'user_profiles'}
 );
+
+module.exports = mongoose.model("User", userSchema);
