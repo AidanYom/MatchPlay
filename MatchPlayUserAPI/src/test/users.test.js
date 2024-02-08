@@ -12,7 +12,7 @@ afterEach(async () => {
   await mongoose.connection.close();
 });
 
-// Test getUserByID zndpoint
+// Test getUserByID endpoint
 describe("GET /users/:id", () => {
   it("should return a user", async () => {
     const res = await request(app).get(
