@@ -1,0 +1,38 @@
+name: MatchPlayUserAPI CI
+
+on:
+  push:
+    branches: ["develop"]
+  pull_request:
+    branches: ["develop"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 21.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "21.x"
+          cache: "npm"
+          cache-dependency-path: "./MatchPlayUserAPI/package-lock.json"
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./MatchPlayUserAPI
+
+      - name: Create env file
+        working-directory: ./MatchPlayUserAPI
+        run: |
+          touch .env
+          echo MONGODB_URI = ${{secrets.MONGODB_URI}} >> .env
+          echo PORT = ${{vars.PORT}} >> .env
+
+      - name: test
+        run: npm test
+        env:
+          MONGO_URI: ${{env.MONGO_URI}}
+          PORT: ${{vars.PORT}}
+        working-directory: ./MatchPlayUserAPI
