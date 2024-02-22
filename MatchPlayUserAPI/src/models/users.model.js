@@ -33,7 +33,24 @@ const userSchema = new Schema(
       required: true,
     },
     playingRange: [Number],
-    
+    drinkingSmoking: {
+      drinks: { type: Boolean, required: true },
+      smokes: { type: Boolean, required: true },
+      neither: { type: Boolean, required: true },
+      noSmokers: { type: Boolean, required: true },
+      noDrinkers: { type: Boolean, required: true },
+    },
+    musicPrefs: {
+      must: { type: Boolean, required: true },
+      indifferent: { type: Boolean, required: true },
+      none: { type: Boolean, required: true },
+    },
+    timePrefs: {
+      weekendDaylight: { type: Boolean, required: true },
+      weekendTwilight: { type: Boolean, required: true },
+      weekdayDaylight: { type: Boolean, required: true },
+      weekdayTwilight: { type: Boolean, required: true },
+    },
   },
   { collection: "user_profiles" }
 );

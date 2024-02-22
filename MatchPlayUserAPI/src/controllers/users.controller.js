@@ -1,4 +1,4 @@
-const User = require("../models/user.model");
+const User = require("../models/users.model");
 
 const getUserByID = async (req, res) => {
   try {
@@ -9,7 +9,13 @@ const getUserByID = async (req, res) => {
   }
 };
 
-const insertUser = async (req, res) => {};
+const insertUser = async (req, res) => {
+  try {
+
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 module.exports = {
   getUserByID,
   insertUser,
