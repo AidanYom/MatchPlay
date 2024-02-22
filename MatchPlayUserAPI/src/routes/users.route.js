@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 
-const {
-    getUserByID,
-} = require("../controllers/user.controller")
+const { getUserByID, insertUser } = require("../controllers/user.controller");
 
 const router = express.Router();
 
 router.get("/:id", getUserByID);
+
+router.post("/", insertUser);
 
 module.exports = router;
