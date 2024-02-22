@@ -11,7 +11,8 @@ const getUserByID = async (req, res) => {
 
 const insertUser = async (req, res) => {
   try {
-
+    await User.create(req.body);
+    res.status(200).json(req.body);
   } catch (error) {
     res.status(500).json(error);
   }
