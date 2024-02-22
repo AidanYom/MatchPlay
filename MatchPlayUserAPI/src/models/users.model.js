@@ -46,9 +46,9 @@ const userSchema = new Schema(
       none: { type: Boolean, required: true },
     },
     timePrefs: {
-      weekendDaylight: { type: Boolean, required: true },
+      weekendDaytime: { type: Boolean, required: true },
       weekendTwilight: { type: Boolean, required: true },
-      weekdayDaylight: { type: Boolean, required: true },
+      weekdayDaytime: { type: Boolean, required: true },
       weekdayTwilight: { type: Boolean, required: true },
     },
   },
