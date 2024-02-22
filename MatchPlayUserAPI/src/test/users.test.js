@@ -15,12 +15,10 @@ afterEach(async () => {
 // Test getUserByID endpoint
 describe("GET /users/:id", () => {
   it("should return a user", async () => {
-    const res = await request(app).get(
-      "/users/65c3f8013231e781fafb9ada"
-    );
+    const res = await request(app).get("/users/65d4c612f91642ad1fb4e1c4");
     expect(res.statusCode).toBe(200);
     expect(res.body.name).toBe("John Doe");
-    expect(res.body.age).toBe(22);
+    expect(res.body.birthday).toBe("02/02/2002");
     expect(res.body.handicap).toBe(10);
   });
 });
