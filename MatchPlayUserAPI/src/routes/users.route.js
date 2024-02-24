@@ -1,14 +1,17 @@
 const express = require("express");
 
 const {
-  getUserByIDController,
-  insertUserController,
+  get_user_by_id_controller,
+  insert_user_controller,
+  get_compatible_user_controller,
 } = require("../controllers/users.controller");
 
 const router = express.Router();
 
-router.get("/:id", getUserByIDController);
+router.get("/:id", get_user_by_id_controller);
 
-router.post("/", insertUserController);
+router.post("/", insert_user_controller);
+
+router.get("/compatible/:id", get_compatible_user_controller);
 
 module.exports = router;

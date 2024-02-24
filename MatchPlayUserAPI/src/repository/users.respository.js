@@ -1,14 +1,19 @@
 const User = require("../models/users.model");
 
-const getUserByIDRepository = (userID) => {
+const get_user_by_id_repository = (userID) => {
   return User.findById(userID);
 };
 
-const insertUserRepository = (userObject) => {
+const insert_user_repository = (userObject) => {
   User.create(userObject);
 };
 
+const get_random_user = () => {
+  return User.aggregate().sample(1);
+};
+
 module.exports = {
-  getUserByIDRepository,
-  insertUserRepository,
+  get_user_by_id_repository,
+  insert_user_repository,
+  get_random_user,
 };
