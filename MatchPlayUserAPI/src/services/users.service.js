@@ -1,7 +1,7 @@
 const {
   get_user_by_id_repository,
   get_random_user,
-} = require("../repositories/users.respository");
+} = require("../repositories/users.repository");
 
 const out_of_range = (val, lower, upper) => {
   if (val < lower) {
