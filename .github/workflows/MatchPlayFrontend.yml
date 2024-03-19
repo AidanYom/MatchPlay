@@ -18,7 +18,7 @@ jobs:
       with:
         node-version: "21.x"
         cache: "npm"
-        cache-dependency-path: "./MatchPlayFrontend2/package-lock.json"
+        cache-dependency-path: "./MatchPlayFrontendV2/package-lock.json"
     - name: Install packages
       run: npm ci
-      working-directory: ./MatchPlayFrontend2
+      working-directory: ./MatchPlayFrontendV2

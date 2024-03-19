@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "MatchPlayFrontendV2",
+    "slug": "MatchPlayFrontendV2",
+    "version": "1.0.0",
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/whole_logo.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.aidanyom.MatchPlayFrontendV2"
+    },
+    "splash": {
+      "image": "./app/assets/splash_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "icon": "./app/assets/whole_logo.png"
+  }
+}
