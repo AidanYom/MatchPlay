@@ -19,31 +19,41 @@ function SignupScreen4({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Drinking or Smoking on The Course</Text>
-        <CheckBox
-          value={drinkOrSmoke === "Drink"}
-          onValueChange={() => setDrinkOrSmoke("Drink")}
-        />
-        <Text>Drink</Text>
-        <CheckBox
-          value={drinkOrSmoke === "Smoke"}
-          onValueChange={() => setDrinkOrSmoke("Smoke")}
-        />
-        <Text>Smoke</Text>
-        <CheckBox
-          value={drinkOrSmoke === "I do not drink or smoke"}
-          onValueChange={() => setDrinkOrSmoke("I do not drink or smoke")}
-        />
-        <Text>I do not drink or smoke</Text>
-        <CheckBox
-          value={drinkOrSmoke === "Do not play with drinkers"}
-          onValueChange={() => setDrinkOrSmoke("Do not play with drinkers")}
-        />
-        <Text>Do not play with drinkers</Text>
-        <CheckBox
-          value={drinkOrSmoke === "Do not play with smokers"}
-          onValueChange={() => setDrinkOrSmoke("Do not play with smokers")}
-        />
-        <Text>Do not play with smokers</Text>
+        <View style={styles.checkboxContainer}>
+          <CheckBox
+            value={drinkOrSmoke === "Drink"}
+            onValueChange={() => setDrinkOrSmoke("Drink")}
+          />
+          <Text>Drink</Text>
+        </View>
+        <View style={styles.checkboxContainer}>
+          <CheckBox
+            value={drinkOrSmoke === "Smoke"}
+            onValueChange={() => setDrinkOrSmoke("Smoke")}
+          />
+          <Text>Smoke</Text>
+        </View>
+        <View style={styles.checkboxContainer}>
+          <CheckBox
+            value={drinkOrSmoke === "I do not drink or smoke"}
+            onValueChange={() => setDrinkOrSmoke("I do not drink or smoke")}
+          />
+          <Text>I do not drink or smoke</Text>
+        </View>
+        <View style={styles.checkboxContainer}>
+          <CheckBox
+            value={drinkOrSmoke === "Do not play with drinkers"}
+            onValueChange={() => setDrinkOrSmoke("Do not play with drinkers")}
+          />
+          <Text>Do not play with drinkers</Text>
+        </View>
+        <View style={styles.checkboxContainer}>
+          <CheckBox
+            value={drinkOrSmoke === "Do not play with smokers"}
+            onValueChange={() => setDrinkOrSmoke("Do not play with smokers")}
+          />
+          <Text>Do not play with smokers</Text>
+        </View>
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Handicap Range I will Play With</Text>
@@ -120,6 +130,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 
