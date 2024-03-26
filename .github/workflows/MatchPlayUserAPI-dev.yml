@@ -1,4 +1,4 @@
-name: MatchPlayUserAPI CI
+name: MatchPlayUserAPI-dev
 
 on:
   push:
@@ -32,7 +32,11 @@ jobs:
 
       - name: test
         run: npm test
-        env:
-          MONGO_URI: ${{env.MONGO_URI}}
-          PORT: ${{vars.PORT}}
         working-directory: ./MatchPlayUserAPI
+
+      - name: docker build and push
+        working-directory: ./MatchPlayUserAPI
+        run: |
+          docker build . -t ajyan2001/matchplay-dev:latest
+          echo "${{secrets.DOCKER_TOKEN}}" | docker login --username ajyan2001 --password-stdin
+          docker push ajyan2001/matchplay-dev:latest
