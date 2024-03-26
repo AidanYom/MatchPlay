@@ -27,7 +27,7 @@ jobs:
         working-directory: ./MatchPlayUserAPI
         run: |
           touch .env
-          echo MONGODB_URI = ${{secrets.MONGODB_URI}} >> .env
+          echo MONGODB_URI = ${{secrets.MONGODB_URI_DEV}} >> .env
           echo PORT = ${{vars.PORT}} >> .env
 
       - name: test
