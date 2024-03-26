@@ -38,5 +38,5 @@ jobs:
         working-directory: ./MatchPlayUserAPI
         run: |
           docker build . -t ajyan2001/matchplay-dev:latest
-          echo "${{secrets.DOCKER_TOKEN}}" | docker login --username ajyan2001 --password-stdin
+          echo "${{secrets.DOCKER_TOKEN}}" | docker login --username ${{secrets.DOCKER_USERNAME}} --password-stdin
           docker push ajyan2001/matchplay-dev:latest
