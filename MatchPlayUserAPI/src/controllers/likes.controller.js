@@ -6,6 +6,7 @@ const {
 const {
   add_like_service,
   add_dislike_service,
+  check_like_service,
 } = require("../services/likes.service");
 
 const get_like_by_id_controller = async (req, res) => {
@@ -32,7 +33,8 @@ const add_like_controller = async (req, res) => {
   try {
     user1ID = req.params.id1;
     user2ID = req.params.id2;
-    add_like_service(user1ID, user2ID);
+    // add_like_service(user1ID, user2ID);
+    check_like_service(user1ID, user2ID);
     res.status(200).json(compatibleUser);
   } catch (error) {
     res.status(500).json(error);
