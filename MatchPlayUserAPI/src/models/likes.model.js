@@ -20,4 +20,21 @@ const likeSchema = new Schema(
   { collection: "likes" }
 );
 
-module.exports = mongoose.model("Like", likeSchema);
+const matchSchema = new Schema(
+  {
+    user1ID: {
+      type: String,
+      required: true,
+    },
+    user2ID: {
+      type: String,
+      required: true,
+    },
+  },
+  { collection: "matches" }
+);
+
+const Like = mongoose.model("Like", likeSchema);
+const Match = mongoose.model("Match", matchSchema);
+
+module.exports = { Like, Match };
