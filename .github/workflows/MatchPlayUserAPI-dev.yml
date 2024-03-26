@@ -48,6 +48,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./MatchPlayUserAPI
+          context: "{{defaultContext}}:MatchPlayUserAPI"
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/matchplay-dev:latest
