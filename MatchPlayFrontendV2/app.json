@@ -16,6 +16,19 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "icon": "./app/assets/whole_logo.png"
+    "icon": "./app/assets/whole_logo.png",
+    "ios": {
+      "bundleIdentifier": "com.aidanyom.MatchPlayFrontendV2"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "17.4"
+          }
+        }
+      ]
+    ]
   }
 }
