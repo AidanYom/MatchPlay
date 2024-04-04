@@ -7,6 +7,8 @@ function LoadStartScreen({ navigation }) {
   const { logOut } = useAuth();
   const user = useUser();
 
+  console.log(user.accessToken)
+
   useEffect(() => {
     navigation.navigate("SignupScreen1");
   });
