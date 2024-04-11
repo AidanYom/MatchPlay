@@ -165,10 +165,9 @@ const get_compatible_user_service = async (userID) => {
     let user2_sample = await get_random_user();
     user2 = user2_sample[0];
     if (JSON.stringify(user1._id) != JSON.stringify(user2._id)) {
-      let user2Like = get_like_by_id_repository(user2.email);
       if (
-        user2Like.likes.indexOf(user1.email) > -1 ||
-        user2Like.dislikes.indexOf(user1.email) > -1
+        user2.likes.indexOf(user1.email) > -1 ||
+        user2.dislikes.indexOf(user1.email) > -1
       ) {
         compatibilityScore = compatibility_score(user1, user2);
       }
