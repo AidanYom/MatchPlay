@@ -1,6 +1,5 @@
 const {
   get_like_by_id_repository,
-  create_like_repository,
 } = require("../repositories/likes.repository");
 
 const {
@@ -19,7 +18,7 @@ const get_like_by_id_controller = async (req, res) => {
   }
 };
 
-const create_like_controller = async (req, res) => {
+/* const create_like_controller = async (req, res) => {
   try {
     likeObject = req.body;
     await create_like_repository(likeObject);
@@ -27,13 +26,13 @@ const create_like_controller = async (req, res) => {
   } catch (error) {
     res.status(500).json(error);
   }
-};
+}; */
 
 const add_like_controller = async (req, res) => {
   try {
     user1ID = req.params.id1;
     user2ID = req.params.id2;
-    // add_like_service(user1ID, user2ID);
+    add_like_service(user1ID, user2ID);
     check_like_service(user1ID, user2ID);
     res.status(200).json(compatibleUser);
   } catch (error) {
@@ -54,7 +53,6 @@ const add_dislike_controller = async (req, res) => {
 
 module.exports = {
   get_like_by_id_controller,
-  create_like_controller,
   add_like_controller,
   add_dislike_controller,
 };
