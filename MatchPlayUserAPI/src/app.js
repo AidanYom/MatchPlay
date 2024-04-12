@@ -14,6 +14,7 @@ app.use(passport.initialize());
 
 const usersRoute = require("./routes/users.route");
 const likesRoute = require("./routes/likes.route");
+const chatsRoute = require("./routes/chats.route");
 
 app.get("/", (req, res) => {
   res.status(200).json({ alive: "True" });
@@ -21,5 +22,6 @@ app.get("/", (req, res) => {
 
 app.use("/users", usersRoute);
 app.use("/likes", likesRoute);
+app.use("/chats", chatsRoute);
 
 module.exports = app;
