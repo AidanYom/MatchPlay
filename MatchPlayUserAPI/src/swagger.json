@@ -55,12 +55,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       },
       "put": {
         "description": "Edits the quote with a passed id",
@@ -116,6 +111,14 @@
     "/likes/{id1}/{id2}/like": {
       "get": {
         "description": "Adds user2 to user1's likes and checks if user1 is in user2's likes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          },
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -129,9 +132,93 @@
     "/likes/{id1}/{id2}/dislike": {
       "get": {
         "description": "Adds user2 to user1's dislikes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          },
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/chats/matches/{id}": {
+      "get": {
+        "description": "Returns the user's matches",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchArray"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/chats/messages/{senderId}/{recipientId}": {
+      "get": {
+        "description": "Returns the messages between the sender and the recipient",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          },
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/messages": {
+      "post": {
+        "description": "Creates a new message",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
           },
           "500": {
             "description": "Internal Server Error"
@@ -205,6 +292,28 @@
             }
           }
         }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "senderId": { "type": "string" },
+          "recepientId": { "type": "string" },
+          "message": { "type": "string" },
+          "timeStamp": { "type": "string" }
+        }
+      },
+      "MatchArray": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "MessageArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Message",
+          "type": "object"
+        }
       }
     },
     "parameters": {
@@ -216,36 +325,6 @@
         "schema": {
           "type": "string"
         }
-      }
-    },
-    "responses": {
-      "200OK": {
-        "description": "The request is OK"
-      },
-      "201Created": {
-        "description": "The request has been fulfilled, and a new resource is created"
-      },
-      "400BadRequest": {
-        "description": "The request cannot be fulfilled due to bad syntax"
-      },
-      "401Unauthorized": {
-        "description": "The request was a legal request, but the server is refusing to respond to it. For use when authentication is possible but has failed or not yet been provided"
-      },
-      "403Forbidden": {
-        "description": "The request was a legal request, but the server is refusing to respond to it"
-      },
-      "404NotFound": {
-        "description": "The requested page could not be found but may be available again in the future"
-      },
-      "500InternalServerError": {
-        "description": "Error"
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
       }
     }
   }
