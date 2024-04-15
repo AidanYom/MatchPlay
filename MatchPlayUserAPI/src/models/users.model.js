@@ -50,6 +50,24 @@ const userSchema = new Schema(
       weekdayDaytime: { type: Boolean, required: true },
       weekdayTwilight: { type: Boolean, required: true },
     },
+    likes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    dislikes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    matches: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   { collection: "user_profiles" }
 );

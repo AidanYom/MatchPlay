@@ -1,7 +1,11 @@
 const {
   get_user_by_id_repository,
   get_random_user,
-} = require("../repository/users.respository");
+} = require("../repositories/users.repository");
+
+const {
+  get_like_by_id_repository,
+} = require("../repositories/likes.repository");
 
 const out_of_range = (val, lower, upper) => {
   if (val < lower) {
@@ -161,7 +165,12 @@ const get_compatible_user_service = async (userID) => {
     let user2_sample = await get_random_user();
     user2 = user2_sample[0];
     if (JSON.stringify(user1._id) != JSON.stringify(user2._id)) {
-      compatibilityScore = compatibility_score(user1, user2);
+      if (
+        user2.likes.indexOf(user1.email) > -1 ||
+        user2.dislikes.indexOf(user1.email) > -1
+      ) {
+        compatibilityScore = compatibility_score(user1, user2);
+      }
     }
   }
 
