@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.0",
+    "version": "0.10.0",
     "title": "MatchPlayAPI",
     "description": "REST API for MongoDB CRUD operations created with Express and documented using Swagger"
   },
