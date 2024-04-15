@@ -28,10 +28,6 @@ const check_like_service = async (user1ID, user2ID) => {
     user2.matches.push(user1ID);
     await update_like_repository(user1);
     await update_like_repository(user2);
-    return true
-  }
-  else{
-    return false
   }
 };
 
