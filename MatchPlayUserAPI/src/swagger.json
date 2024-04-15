@@ -1,0 +1,423 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "MatchPlayAPI",
+    "description": "REST API for MongoDB CRUD operations created with Express and documented using Swagger"
+  },
+  "servers": [
+    {
+      "url": "localhost:30000"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "description": "Creates a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Failed"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "description": "Returns the user by id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "description": "Edits the quote with a passed id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/quoteIdParam"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Quote"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Page Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "description": "Deleting quote",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/quoteIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Page Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/test/all": {
+      "get": {
+        "description": "Route for all",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/test/user": {
+      "get": {
+        "description": "User dashboard",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": ["isUser"]
+          }
+        ]
+      }
+    },
+    "/api/test/mod": {
+      "get": {
+        "description": "Moderator dashboard",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": ["isModerator"]
+          }
+        ]
+      }
+    },
+    "/api/test/admin": {
+      "get": {
+        "description": "Admin dashboard",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": ["isAdmin"]
+          }
+        ]
+      }
+    },
+    "/api/auth/signup": {
+      "post": {
+        "description": "Creating new user",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/auth/signin": {
+      "post": {
+        "description": "Loging in",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The user id"
+                    },
+                    "username": {
+                      "type": "string",
+                      "description": "The user name"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "The user email"
+                    },
+                    "roles": {
+                      "type": "array",
+                      "description": "The user role/s"
+                    },
+                    "accessToken": {
+                      "type": "string",
+                      "description": "JWT token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Page Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "autor": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "name": { "type": "string" },
+          "handicap": { "type": "number" },
+          "phoneNumber": { "type": "string" },
+          "gender": { "type": "string" },
+          "email": { "type": "string" },
+          "birthday": { "type": "string" },
+          "playingRange": {
+            "type": "object",
+            "properties": {
+              "lower": { "type": "number" },
+              "upper": { "type": "number" }
+            }
+          },
+          "drinkingSmoking": {
+            "type": "object",
+            "properties": {
+              "drinks": { "type": "boolean" },
+              "smokes": { "type": "boolean" },
+              "neither": { "type": "boolean" },
+              "noSmokers": { "type": "boolean" },
+              "noDrinkers": { "type": "boolean" }
+            }
+          },
+          "musicPrefs": {
+            "type": "object",
+            "properties": {
+              "must": { "type": "boolean" },
+              "indifferent": { "type": "boolean" },
+              "none": { "type": "boolean" }
+            }
+          },
+          "timePrefs": {
+            "type": "object",
+            "properties": {
+              "weekendDaytime": { "type": "boolean" },
+              "weekendTwilight": { "type": "boolean" },
+              "weekdayDaytime": { "type": "boolean" },
+              "weekdayTwilight": { "type": "boolean" }
+            }
+          },
+          "likes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dislikes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "matches": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ObjectOfQuotes": {
+        "type": "object",
+        "properties": {
+          "quote": {
+            "$ref": "#/components/schemas/Quote",
+            "type": "object"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "userIdParam": {
+        "name": "id",
+        "in": "path",
+        "description": "Id of the user",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "200OK": {
+        "description": "The request is OK"
+      },
+      "201Created": {
+        "description": "The request has been fulfilled, and a new resource is created"
+      },
+      "400BadRequest": {
+        "description": "The request cannot be fulfilled due to bad syntax"
+      },
+      "401Unauthorized": {
+        "description": "The request was a legal request, but the server is refusing to respond to it. For use when authentication is possible but has failed or not yet been provided"
+      },
+      "403Forbidden": {
+        "description": "The request was a legal request, but the server is refusing to respond to it"
+      },
+      "404NotFound": {
+        "description": "The requested page could not be found but may be available again in the future"
+      },
+      "500InternalServerError": {
+        "description": "Error"
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
