@@ -6,7 +6,12 @@ const {
 
 const get_matches_by_id_service = async (userID) => {
   const user = await get_user_by_id_repository(userID);
-  const matches = user.matches;
+  const match_ids = user.matches;
+  let matches = [];
+  for (const match_id of match_ids) {
+    const user_match = await get_user_by_id_repository(match_id);
+    matches.push(user_match);
+  }
 
   return matches;
 };
