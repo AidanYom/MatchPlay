@@ -24,14 +24,14 @@ import Footer from "../../components/Footer";
 const { width, height } = Dimensions.get("screen");
 
 const SwipeScreen = ({ navigation }) => {
-  const [potentialMatch, setPotentialMatch] = useState([]);
+  const [potentialMatch, setPotentialMatch] = useState();
   const { userId, setUserId } = useContext(UserType);
 
   useEffect(() => {
     setUserId("660f11e2b13eaea0ac834367");
   });
 
-  useEffect(() => {
+  /* useEffect(() => {
     const compatibleUser = async () => {
       try {
         const response = await fetch(
@@ -48,6 +48,27 @@ const SwipeScreen = ({ navigation }) => {
     };
 
     compatibleUser();
+  }, []); */
+
+  useEffect(() => {
+    const compatibleUsers = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/users/${userId}/compatible/multiple`
+        );
+
+        console.log(response.ok);
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setPotentialMatch(data);
+        }
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    compatibleUsers();
   }, []);
 
   const things = [
