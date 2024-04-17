@@ -8,7 +8,7 @@ function LoadStartScreen({ navigation }) {
   const user = useUser();
 
   useEffect(() => {
-    navigation.navigate("SignupScreen1");
+    navigation.navigate("SwipeScreen");
   });
 
   return (
