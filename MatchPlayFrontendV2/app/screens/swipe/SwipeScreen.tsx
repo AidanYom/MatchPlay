@@ -27,25 +27,6 @@ const SwipeScreen = ({ navigation }) => {
   const [potentialMatch, setPotentialMatch] = useState([]);
   const { userId, setUserId } = useContext(UserType);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: "",
-      headerLeft: () => (
-        <Text style={{ fontSize: 16, fontWeight: "bold" }}>Match Play</Text>
-      ),
-      headerRight: () => (
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-          <Ionicons
-            onPress={() => navigation.navigate("ChatScreen")}
-            name="chatbox-ellipses-outline"
-            size={24}
-            color="black"
-          />
-        </View>
-      ),
-    });
-  }, []);
-
   useEffect(() => {
     setUserId("660f11e2b13eaea0ac834367");
   });
@@ -75,6 +56,12 @@ const SwipeScreen = ({ navigation }) => {
   ];
 
   const [users, setUsers] = useState(things);
+
+  useEffect(() => {
+    if (!users.length) {
+      setUsers(things);
+    }
+  }, [users.length]);
 
   const swipe = useRef(new Animated.ValueXY()).current;
   const titleSign = useRef(new Animated.Value(1)).current;
@@ -131,11 +118,24 @@ const SwipeScreen = ({ navigation }) => {
     [removeTopCard, swipe.x]
   );
 
-  useEffect(() => {
-    if (!users.length) {
-      setUsers(things);
-    }
-  }, [users.length]);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: "",
+      headerLeft: () => (
+        <Text style={{ fontSize: 16, fontWeight: "bold" }}>Match Play</Text>
+      ),
+      headerRight: () => (
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+          <Ionicons
+            onPress={() => navigation.navigate("ChatScreen")}
+            name="chatbox-ellipses-outline"
+            size={24}
+            color="black"
+          />
+        </View>
+      ),
+    });
+  }, []);
 
   return (
     <View style={{ flex: 1, alignItems: "center", backgroundColor: "white" }}>
