@@ -185,6 +185,35 @@ const get_compatible_user_service = async (userID) => {
   return user2;
 };
 
+const dup_user = (users, user) => {
+  const existingIds = users.map((existingUser) => existingUser._id.toString());
+
+  if (!existingIds.includes(user._id.toString())) {
+    return true;
+  }
+
+  return false;
+};
+
+const get_multiple_compatible_service = async (userID) => {
+  const users = [];
+  let userCounter = 0;
+  while (users.length < 10 && userCounter < 10) {
+    const user = await get_compatible_user_service(userID);
+
+    if (dup_user(users, user)) {
+      users.push(user);
+    } else if (user == null) {
+      break;
+    } else {
+      ++userCounter;
+    }
+  }
+
+  return users;
+};
+
 module.exports = {
   get_compatible_user_service,
+  get_multiple_compatible_service,
 };

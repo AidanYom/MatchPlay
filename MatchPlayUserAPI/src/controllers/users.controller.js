@@ -2,7 +2,10 @@ const {
   get_user_by_id_repository,
   insert_user_repository,
 } = require("../repositories/users.repository");
-const { get_compatible_user_service } = require("../services/users.service");
+const {
+  get_compatible_user_service,
+  get_multiple_compatible_service,
+} = require("../services/users.service");
 
 const get_user_by_id_controller = async (req, res) => {
   try {
@@ -35,8 +38,21 @@ const get_compatible_user_controller = async (req, res) => {
   }
 };
 
+const get_multiple_compatible_controller = async (req, res) => {
+  try {
+    console.log("start fetch");
+    userID = req.params.id;
+    const compatibleUsers = await get_multiple_compatible_service(userID);
+    console.log("success");
+    res.status(200).json(compatibleUsers);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   get_user_by_id_controller,
   insert_user_controller,
   get_compatible_user_controller,
+  get_multiple_compatible_controller,
 };
