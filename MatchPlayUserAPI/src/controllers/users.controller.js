@@ -8,10 +8,19 @@ const get_user_by_id_controller = async (req, res) => {
   try {
     userID = req.params.id;
     const user = await get_user_by_id_repository(userID);
-
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json(error);
+  }
+};
+
+update_user_controller = async (req, res) => {
+  try {
+    console.log(req.body);
+    res.status(200).json({ message: "Document updated successfully" });
+  } catch (error) {
+    console.error("Error updating document:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
