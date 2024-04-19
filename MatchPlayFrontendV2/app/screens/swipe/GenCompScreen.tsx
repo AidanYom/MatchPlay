@@ -6,21 +6,20 @@ import React, {
   useLayoutEffect,
   useCallback,
 } from "react";
-import { UserType } from "../../UserContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute, useFocusEffect } from "@react-navigation/native";
+import { useUser } from "@realm/react";
 
 const GenCompScreen = ({ navigation }) => {
   const [potentialMatch, setPotentialMatch] = useState([]);
-  const { userId, setUserId } = useContext(UserType);
+  const user = useUser();
   let gen = 0;
-  let matchesFound = 0;
   let buttonText = "Let's Start Swiping";
 
   const compatibleUsers = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/users/${userId}/compatible/multiple`
+        `http://localhost:3000/users/${user.id}/compatible/multiple`
       );
 
       const data = await response.json();

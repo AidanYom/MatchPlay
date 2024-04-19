@@ -28,103 +28,96 @@ import SwipeScreen from "./screens/swipe/SwipeScreen";
 import GenCompScreen from "./screens/swipe/GenCompScreen";
 import NoCompScreen from "./screens/swipe/NoCompScreen";
 
-import { UserContext } from "./UserContext";
-
 export const App: React.FC = () => {
   const Stack = createNativeStackNavigator();
 
   return (
-    <UserContext>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="LoadStartScreen">
-          <Stack.Screen
-            name="HomeScreen"
-            component={HomeScreen}
-            options={{
-              header: () => (
-                <CustomHeader backAvailable={true} logoutAvailable={true} />
-              ),
-            }}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="LoadStartScreen"
-            component={LoadStartScreen}
-            options={{
-              header: () => (
-                <CustomHeader backAvailable={false} logoutAvailable={true} />
-              ),
-            }}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="LoginScreen"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="SignupScreen1"
-            component={SignupScreen1}
-            options={{
-              header: () => (
-                <CustomHeader backAvailable={true} logoutAvailable={true} />
-              ),
-            }}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="SignupScreen2"
-            component={SignupScreen2}
-            options={{
-              header: () => (
-                <CustomHeader backAvailable={true} logoutAvailable={true} />
-              ),
-            }}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="SignupScreen3"
-            component={SignupScreen3}
-            options={{
-              header: () => (
-                <CustomHeader backAvailable={true} logoutAvailable={true} />
-              ),
-            }}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="SignupScreen4"
-            component={SignupScreen4}
-            options={{
-              header: () => (
-                <CustomHeader backAvailable={true} logoutAvailable={true} />
-              ),
-            }}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="ReadyToEnter"
-            component={ReadyToEnter}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="ChatScreen"
-            component={ChatScreen}
-            options={{ title: "Matches" }}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="MessageScreen"
-            component={MessageScreen}
-            options={{}}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="SwipeScreen"
-            component={SwipeScreen}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="GenCompScreen"
-            component={GenCompScreen}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="NoCompScreen"
-            component={NoCompScreen}
-          ></Stack.Screen>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </UserContext>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="LoadStartScreen">
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{
+            header: () => (
+              <CustomHeader backAvailable={true} logoutAvailable={true} />
+            ),
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="LoadStartScreen"
+          component={LoadStartScreen}
+          options={{
+            header: () => (
+              <CustomHeader backAvailable={false} logoutAvailable={true} />
+            ),
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="SignupScreen1"
+          component={SignupScreen1}
+          options={{
+            header: () => (
+              <CustomHeader backAvailable={true} logoutAvailable={true} />
+            ),
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="SignupScreen2"
+          component={SignupScreen2}
+          options={{
+            header: () => (
+              <CustomHeader backAvailable={true} logoutAvailable={true} />
+            ),
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="SignupScreen3"
+          component={SignupScreen3}
+          options={{
+            header: () => (
+              <CustomHeader backAvailable={true} logoutAvailable={true} />
+            ),
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="SignupScreen4"
+          component={SignupScreen4}
+          options={{
+            header: () => (
+              <CustomHeader backAvailable={true} logoutAvailable={true} />
+            ),
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ReadyToEnter"
+          component={ReadyToEnter}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ChatScreen"
+          component={ChatScreen}
+          options={{ title: "Matches" }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="MessageScreen"
+          component={MessageScreen}
+          options={{}}
+        ></Stack.Screen>
+        <Stack.Screen name="SwipeScreen" component={SwipeScreen}></Stack.Screen>
+        <Stack.Screen
+          name="GenCompScreen"
+          component={GenCompScreen}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="NoCompScreen"
+          component={NoCompScreen}
+        ></Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

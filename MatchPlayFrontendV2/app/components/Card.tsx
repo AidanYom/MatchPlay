@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React, { Fragment, useCallback } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { UserContext } from "../UserContext";
 import Choice from "./Choice";
 
 const { width, height } = Dimensions.get("screen");

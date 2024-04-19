@@ -21,9 +21,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import EmojiSelector from "react-native-emoji-selector";
-import { UserType } from "../../UserContext";
 import { useNavigation, useRoute } from "@react-navigation/native";
-// import * as ImagePicker from "expo-image-picker";
+import { useUser } from "@realm/react";
 
 const MessageScreen = ({ navigation }) => {
   const [showEmojiSelector, setShowEmojiSelector] = useState(false);
@@ -32,7 +31,7 @@ const MessageScreen = ({ navigation }) => {
   const route = useRoute();
   const { recepientId } = route.params;
   const [message, setMessage] = useState("");
-  const { userId, setUserId } = useContext(UserType);
+  const user = useUser();
 
   const scrollViewRef = useRef(null);
 
@@ -57,7 +56,7 @@ const MessageScreen = ({ navigation }) => {
   const fetchMessages = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/chats/messages/${userId}/${recepientId}`
+        `http://localhost:3000/chats/messages/${user.id}/${recepientId}`
       );
       const data = await response.json();
 
@@ -94,7 +93,7 @@ const MessageScreen = ({ navigation }) => {
   const handleSend = async () => {
     try {
       const messageObject = {
-        senderId: userId,
+        senderId: user.id,
         recepientId: recepientId,
         messageText: message,
       };
@@ -137,7 +136,7 @@ const MessageScreen = ({ navigation }) => {
             <Pressable
               key={index}
               style={[
-                item?.senderId?._id === userId
+                item?.senderId?._id === user.id
                   ? {
                       alignSelf: "flex-end",
                       backgroundColor: "#DCF8C6",

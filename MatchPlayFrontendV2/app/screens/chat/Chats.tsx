@@ -1,16 +1,16 @@
 import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
-import { UserType } from "../../UserContext";
 import UserChat from "../../components/UserChat";
+import { useUser } from "@realm/react";
 
 const ChatScreen = ({ navigation }) => {
   const [matches, setMatches] = useState([]);
-  const { userId, setUserId } = useContext(UserType);
+  const user = useUser();
   useEffect(() => {
     const matchesList = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/chats/matches/${userId}`
+          `http://localhost:3000/chats/matches/${user.id}`
         );
         const data = await response.json();
 

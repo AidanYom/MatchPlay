@@ -16,18 +16,18 @@ import React, {
   useRef,
   useCallback,
 } from "react";
-import { UserType } from "../../UserContext";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Card from "../../components/Card";
 import Footer from "../../components/Footer";
 import { useRoute } from "@react-navigation/native";
+import { useUser } from "@realm/react";
 
 const { width, height } = Dimensions.get("screen");
 
 const SwipeScreen = ({ navigation }) => {
   const route = useRoute();
   const { potentialMatch } = route.params;
-  const { userId, setUserId } = useContext(UserType);
+  const user = useUser();
   const [users, setUsers] = useState(potentialMatch);
   let topIndex = 0;
   let like = 0;
@@ -111,9 +111,9 @@ const SwipeScreen = ({ navigation }) => {
     try {
       let link;
       if (like == 1) {
-        link = `http://localhost:3000/likes/${userId}/${recepientId}/like`;
+        link = `http://localhost:3000/likes/${user.id}/${recepientId}/like`;
       } else if (like == -1) {
-        link = `http://localhost:3000/likes/${userId}/${recepientId}/dislike`;
+        link = `http://localhost:3000/likes/${user.id}/${recepientId}/dislike`;
       }
 
       const response = await fetch(link);

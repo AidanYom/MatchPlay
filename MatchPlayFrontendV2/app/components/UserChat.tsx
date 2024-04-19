@@ -2,17 +2,17 @@ import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { UserType } from "../UserContext";
 import { useFocusEffect } from "@react-navigation/native";
+import { useUser } from "@realm/react";
 
 const UserChat = ({ item, navigation }) => {
-  const { userId, setUserId } = useContext(UserType);
+  const user = useUser();
   const [messages, setMessages] = useState([]);
 
   const fetchMessages = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/chats/messages/${userId}/${item._id}`
+        `http://localhost:3000/chats/messages/${user.id}/${item._id}`
       );
       const data = await response.json();
 
