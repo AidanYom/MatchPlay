@@ -40,10 +40,8 @@ const get_compatible_user_controller = async (req, res) => {
 
 const get_multiple_compatible_controller = async (req, res) => {
   try {
-    console.log("start fetch");
     userID = req.params.id;
     const compatibleUsers = await get_multiple_compatible_service(userID);
-    console.log("success");
     res.status(200).json(compatibleUsers);
   } catch (error) {
     res.status(500).json(error);

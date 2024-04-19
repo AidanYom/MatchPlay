@@ -177,7 +177,7 @@ const get_compatible_user_service = async (userID) => {
       }
     }
 
-    if (++userCounter > 100) {
+    if (++userCounter > 10) {
       return null;
     }
   }
@@ -201,10 +201,10 @@ const get_multiple_compatible_service = async (userID) => {
   while (users.length < 10 && userCounter < 10) {
     const user = await get_compatible_user_service(userID);
 
-    if (dup_user(users, user)) {
-      users.push(user);
-    } else if (user == null) {
+    if (user == null) {
       break;
+    } else if (dup_user(users, user)) {
+      users.push(user);
     } else {
       ++userCounter;
     }
