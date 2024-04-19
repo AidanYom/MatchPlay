@@ -1,14 +1,20 @@
 import { useAuth, useUser } from "@realm/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { ActivityIndicator, StyleSheet, Pressable, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { UserType } from "../../UserContext";
 
 function LoadStartScreen({ navigation }) {
   const { logOut } = useAuth();
   const user = useUser();
+  const { userId, setUserId } = useContext(UserType);
 
   useEffect(() => {
-    navigation.navigate("SwipeScreen");
+    setUserId("660f11e2b13eaea0ac834367");
+  });
+
+  useEffect(() => {
+    navigation.navigate("GenCompScreen");
   });
 
   return (

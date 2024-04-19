@@ -6,7 +6,6 @@ import UserChat from "../../components/UserChat";
 const ChatScreen = ({ navigation }) => {
   const [matches, setMatches] = useState([]);
   const { userId, setUserId } = useContext(UserType);
-  // const userId = "660f11e2b13eaea0ac834367";
   useEffect(() => {
     const matchesList = async () => {
       try {

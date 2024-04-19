@@ -31,10 +31,8 @@ const MessageScreen = ({ navigation }) => {
   const [recepientData, setRecepientData] = useState();
   const route = useRoute();
   const { recepientId } = route.params;
-  // const recepientId = "660f122517bcd637f25ff0cd";
   const [message, setMessage] = useState("");
   const { userId, setUserId } = useContext(UserType);
-  // const userId = "660f11e2b13eaea0ac834367";
 
   const scrollViewRef = useRef(null);
 

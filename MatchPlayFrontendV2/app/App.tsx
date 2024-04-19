@@ -25,6 +25,7 @@ import ChatScreen from "./screens/chat/Chats";
 import MessageScreen from "./screens/chat/Messages";
 
 import SwipeScreen from "./screens/swipe/SwipeScreen";
+import GenCompScreen from "./screens/swipe/GenCompScreen";
 
 import { UserContext } from "./UserContext";
 
@@ -111,6 +112,10 @@ export const App: React.FC = () => {
           <Stack.Screen
             name="SwipeScreen"
             component={SwipeScreen}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="GenCompScreen"
+            component={GenCompScreen}
           ></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

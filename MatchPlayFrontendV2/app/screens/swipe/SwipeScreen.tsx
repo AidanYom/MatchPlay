@@ -20,67 +20,27 @@ import { UserType } from "../../UserContext";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Card from "../../components/Card";
 import Footer from "../../components/Footer";
+import { useRoute } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("screen");
 
 const SwipeScreen = ({ navigation }) => {
-  const [potentialMatch, setPotentialMatch] = useState();
+  const route = useRoute();
+  const { potentialMatch } = route.params;
   const { userId, setUserId } = useContext(UserType);
+  const [users, setUsers] = useState(potentialMatch);
+  let topIndex = 0;
+  let like = 0;
 
   useEffect(() => {
-    setUserId("660f11e2b13eaea0ac834367");
-  });
-
-  /* useEffect(() => {
-    const compatibleUser = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/users/${userId}/compatible`
-        );
-        const data = await response.json();
-
-        if (response.ok) {
-          setPotentialMatch(data);
-        }
-      } catch (error) {
-        console.log("Error showing other users", error);
-      }
-    };
-
-    compatibleUser();
-  }, []); */
-
-  useEffect(() => {
-    const compatibleUsers = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/users/${userId}/compatible/multiple`
-        );
-
-        console.log(response.ok);
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setPotentialMatch(data);
-        }
-      } catch (error) {
-        console.log("Error", error);
-      }
-    };
-    compatibleUsers();
-  }, []);
-
-  const things = [
-    { name: "Adam He", image: require("../../assets/golfer.jpeg") },
-    { name: "Alex Yan", image: require("../../assets/golfer.jpeg") },
-  ];
-
-  const [users, setUsers] = useState(things);
-
-  useEffect(() => {
+    // TRY TO GET THIS TO WORK
+    /* console.log(potentialMatch.length);
+    if (!potentialMatch.length) {
+      console.log("waaa");
+      navigation.navigate("HomeScreen");
+    } */
     if (!users.length) {
-      setUsers(things);
+      navigation.navigate("GenCompScreen");
     }
   }, [users.length]);
 
@@ -101,14 +61,15 @@ const SwipeScreen = ({ navigation }) => {
 
       if (isActionActive) {
         // Swipe the card off the screen
-        Animated.timing(swipe, {
+        /* Animated.timing(swipe, {
           duration: 500,
           toValue: {
             x: direction * 500,
             y: dy,
           },
           useNativeDriver: true,
-        }).start(removeTopCard);
+        }).start(removeTopCard); */
+        handleChoice(direction);
       } else {
         // Return the card to original positions
         Animated.spring(swipe, {
@@ -123,13 +84,20 @@ const SwipeScreen = ({ navigation }) => {
     },
   });
 
+  const topCardData = () => {
+    const topCard = potentialMatch[topIndex++];
+    addLike(topCard._id, like);
+  };
+
   const removeTopCard = useCallback(() => {
     setUsers((prevState) => prevState.slice(1));
     swipe.setValue({ x: 0, y: 0 });
+    topCardData();
   }, [swipe]);
 
   const handleChoice = useCallback(
     (direction) => {
+      like = direction;
       Animated.timing(swipe.x, {
         toValue: direction * 500,
         duration: 400,
@@ -138,6 +106,22 @@ const SwipeScreen = ({ navigation }) => {
     },
     [removeTopCard, swipe.x]
   );
+
+  const addLike = async (recepientId, like) => {
+    try {
+      let link;
+      if (like == 1) {
+        link = `http://localhost:3000/likes/${userId}/${recepientId}/like`;
+      } else if (like == -1) {
+        link = `http://localhost:3000/likes/${userId}/${recepientId}/dislike`;
+      }
+
+      const response = await fetch(link);
+      console.log(link);
+    } catch (error) {
+      console.log("error adding like/dislike", error);
+    }
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({

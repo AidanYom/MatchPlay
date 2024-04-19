@@ -6,8 +6,7 @@ import { UserType } from "../UserContext";
 import { useFocusEffect } from "@react-navigation/native";
 
 const UserChat = ({ item, navigation }) => {
-  const userId = "660f11e2b13eaea0ac834367";
-  // const { userId, setUserId } = useContext(UserType);
+  const { userId, setUserId } = useContext(UserType);
   const [messages, setMessages] = useState([]);
 
   const fetchMessages = async () => {
