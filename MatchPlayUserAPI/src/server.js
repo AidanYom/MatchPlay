@@ -8,7 +8,7 @@ mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("connected");
-    app.listen(PORT, console.log("Server started on port 3000"));
+    app.listen(PORT, console.log(`Server started on port ${PORT}`));
   })
   .catch((err) => {
     console.log(err);
