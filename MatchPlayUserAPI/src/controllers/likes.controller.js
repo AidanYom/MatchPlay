@@ -33,7 +33,8 @@ const add_like_controller = async (req, res) => {
     user1ID = req.params.id1;
     user2ID = req.params.id2;
     add_like_service(user1ID, user2ID);
-    check_like_service(user1ID, user2ID);
+    console.log("Success adding like");
+    //check_like_service(user1ID, user2ID);
     res.status(200).json(compatibleUser);
   } catch (error) {
     res.status(500).json(error);
