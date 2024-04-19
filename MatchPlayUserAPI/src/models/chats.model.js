@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const messageShema = new Schema(
+const messageSchema = new Schema(
   {
     senderId: {
       type: Schema.Types.ObjectId,
@@ -21,4 +21,4 @@ const messageShema = new Schema(
   { collection: "messages" }
 );
 
-module.exports = mongoose.model("Message", messageShema);
+module.exports = mongoose.model("Message", messageSchema);
