@@ -10,7 +10,7 @@ function LoadStartScreen({ navigation }) {
   const { userId, setUserId } = useContext(UserType);
 
   useEffect(() => {
-    setUserId("660f11e2b13eaea0ac834367");
+    setUserId(user.id);
   });
 
   useEffect(() => {
