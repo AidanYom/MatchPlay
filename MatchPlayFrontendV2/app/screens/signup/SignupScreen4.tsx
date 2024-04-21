@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -9,11 +9,43 @@ import {
 } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
 import Slider from "@react-native-community/slider";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  putUpdateUserProfile,
+  updateUserProfileDrinkingSmoking,
+  updateUserProfilePlayingRangeMax,
+  updateUserProfilePlayingRangeMin,
+  updateUserProfileStage,
+  userProfileSelector,
+} from "../../slices/userProfile";
 
 function SignupScreen4({ navigation }) {
-  const [drinkOrSmoke, setDrinkOrSmoke] = useState("");
-  const [rangeMin, setRangeMin] = useState("0");
-  const [rangeMax, setRangeMax] = useState("0");
+  const dispatch = useDispatch();
+
+  const {
+    userProfile,
+    loading: profileLoading,
+    hasErrors: profileHasErrors,
+  } = useSelector(userProfileSelector);
+
+  const handleDrinkingSmokingChange = (text) => {
+    dispatch(updateUserProfileDrinkingSmoking(text));
+  };
+  const handleRangeMinChange = (text) => {
+    dispatch(updateUserProfilePlayingRangeMin(Number(text)));
+  };
+  const handleRangeMaxChange = (text) => {
+    dispatch(updateUserProfilePlayingRangeMax(Number(text)));
+  };
+  const handleStageChange = () => {
+    dispatch(updateUserProfileStage("5"));
+  };
+
+  useEffect(() => {
+    if (userProfile.stage == "5") {
+      dispatch(putUpdateUserProfile(userProfile));
+    }
+  }, [userProfile.stage]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -21,36 +53,36 @@ function SignupScreen4({ navigation }) {
         <Text style={styles.label}>Drinking or Smoking on The Course</Text>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={drinkOrSmoke === "Drink"}
-            onValueChange={() => setDrinkOrSmoke("Drink")}
+            value={userProfile.drinkingSmoking.drinks}
+            onValueChange={() => handleDrinkingSmokingChange("drinks")}
           />
           <Text>Drink</Text>
         </View>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={drinkOrSmoke === "Smoke"}
-            onValueChange={() => setDrinkOrSmoke("Smoke")}
+            value={userProfile.drinkingSmoking.smokes}
+            onValueChange={() => handleDrinkingSmokingChange("smokes")}
           />
           <Text>Smoke</Text>
         </View>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={drinkOrSmoke === "I do not drink or smoke"}
-            onValueChange={() => setDrinkOrSmoke("I do not drink or smoke")}
+            value={userProfile.drinkingSmoking.neither}
+            onValueChange={() => handleDrinkingSmokingChange("neither")}
           />
           <Text>I do not drink or smoke</Text>
         </View>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={drinkOrSmoke === "Do not play with drinkers"}
-            onValueChange={() => setDrinkOrSmoke("Do not play with drinkers")}
+            value={userProfile.drinkingSmoking.noSmokers}
+            onValueChange={() => handleDrinkingSmokingChange("noSmokers")}
           />
           <Text>Do not play with drinkers</Text>
         </View>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={drinkOrSmoke === "Do not play with smokers"}
-            onValueChange={() => setDrinkOrSmoke("Do not play with smokers")}
+            value={userProfile.drinkingSmoking.noDrinkers}
+            onValueChange={() => handleDrinkingSmokingChange("noDrinkers")}
           />
           <Text>Do not play with smokers</Text>
         </View>
@@ -60,21 +92,27 @@ function SignupScreen4({ navigation }) {
         <View style={styles.rangeContainer}>
           <TextInput
             style={styles.rangeInput}
-            value={rangeMin}
-            onChangeText={setRangeMin}
+            value={userProfile.playingRange.lower.toString()}
+            onChangeText={handleRangeMinChange}
             keyboardType="numeric"
           />
           <Text style={styles.rangeDash}>-</Text>
           <TextInput
             style={styles.rangeInput}
-            value={rangeMax}
-            onChangeText={setRangeMax}
+            value={userProfile.playingRange.upper.toString()}
+            onChangeText={handleRangeMaxChange}
             keyboardType="numeric"
           />
         </View>
       </View>
       <Pressable
-        onPress={() => navigation.navigate("ReadyToEnter")}
+        onPress={() => {
+          handleStageChange();
+          if (userProfile.stage == "5") {
+            dispatch(putUpdateUserProfile(userProfile));
+          }
+          navigation.navigate("ReadyToEnter");
+        }}
         style={styles.button}
       >
         <Text style={styles.buttonText}>Next</Text>

@@ -9,14 +9,32 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@realm/react";
+import { useSelector } from "react-redux";
+import {
+  clearUserProfile,
+  putUpdateUserProfile,
+  userProfileSelector,
+} from "../slices/userProfile";
 
 const CustomHeader: React.FC<{
   backAvailable: boolean;
   logoutAvailable: boolean;
 }> = ({ backAvailable, logoutAvailable }) => {
+  const {
+    userProfile,
+    loading: profileLoading,
+    hasErrors: profileHasErrors,
+  } = useSelector(userProfileSelector);
+
   const navigation = useNavigation();
 
   const { logOut } = useAuth();
+
+  const handleLogout = () => {
+    putUpdateUserProfile(userProfile);
+    clearUserProfile();
+    logOut();
+  };
 
   const goBack = () => {
     navigation.goBack();
@@ -36,7 +54,10 @@ const CustomHeader: React.FC<{
             </TouchableOpacity>
           )}
           {logoutAvailable && (
-            <TouchableOpacity style={styles.logoutButton} onPress={logOut}>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={handleLogout}
+            >
               <Text style={styles.logoutText}>Logout</Text>
             </TouchableOpacity>
           )}

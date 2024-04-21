@@ -1,49 +1,39 @@
-export class UserProfileState {
-  userId: Text;
-  basicData: UserBasicData;
-  golfData: UserGolfData;
-  timePref: UserTimePref;
-  partnerPref: UserPartnerPref;
-}
-
-export class UserBasicData {
-  name: String;
-  phoneNumber: String;
-  gender: String;
-  email: String;
-  birthday: String;
-}
-
-export class UserGolfData {
-  handicap: Number;
-  courseDescription: String;
-  selfDescription: String;
-}
-
-export class UserTimePref {
-  musicPrefs: {
-    definitely: Boolean;
-    indifferent: Boolean;
-    noMusic: Boolean;
-  };
-  timePrefs: {
-    weekendDaytime: Boolean;
-    weekendTwilight: Boolean;
-    weekdayDaytime: Boolean;
-    weekdayTwilight: Boolean;
-  };
-}
-
-export class UserPartnerPref {
+export const UserProfileInitialState = {
   playingRange: {
-    lower: Number;
-    upper: Number;
-  };
+    lower: 0,
+    upper: 0,
+  },
   drinkingSmoking: {
-    drinks: Boolean;
-    smokes: Boolean;
-    neither: Boolean;
-    noSmokers: Boolean;
-    noDrinkers: Boolean;
-  };
-}
+    drinks: false,
+    smokes: false,
+    neither: false,
+    noSmokers: false,
+    noDrinkers: false,
+  },
+  musicPrefs: {
+    must: false,
+    indifferent: false,
+    none: false,
+  },
+  timePrefs: {
+    weekendDaytime: false,
+    weekendTwilight: false,
+    weekdayDaytime: false,
+    weekdayTwilight: false,
+  },
+  _id: "",
+  creationTime: "",
+  name: "",
+  phoneNumber: "",
+  gender: "",
+  email: "",
+  birthday: "",
+  handicap: 0,
+  courseDescription: "",
+  selfDescription: "",
+  likes: [],
+  dislikes: [],
+  matches: [],
+  __v: 0,
+  stage: "1",
+};

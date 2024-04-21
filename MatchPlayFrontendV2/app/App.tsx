@@ -89,7 +89,12 @@ export const App: React.FC = () => {
         <Stack.Screen
           name="ReadyToEnter"
           component={ReadyToEnter}
-          options={{ headerShown: false }}
+          options={{
+            header: () => (
+              <CustomHeader backAvailable={true} logoutAvailable={true} />
+            ),
+          }}
+          // options={{ headerShown: false }}
         ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

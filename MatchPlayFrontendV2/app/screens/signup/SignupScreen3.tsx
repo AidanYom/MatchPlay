@@ -1,33 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, View, StyleSheet, Pressable } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  putUpdateUserProfile,
+  updateUserProfileMusicPrefs,
+  updateUserProfileStage,
+  updateUserProfileTimePrefs,
+  userProfileSelector,
+} from "../../slices/userProfile";
 
 function SignupScreen3({ navigation }) {
-  const [timePreferences, setTimePreferences] = useState({
-    weekendDaytime: false,
-    weekendTwilight: false,
-    weekdayDaytime: false,
-    weekdayTwilight: false,
-  });
+  const dispatch = useDispatch();
 
-  const [musicPreference, setMusicPreference] = useState({
-    definitely: false,
-    indifferent: false,
-    noMusic: false,
-  });
+  const {
+    userProfile,
+    loading: profileLoading,
+    hasErrors: profileHasErrors,
+  } = useSelector(userProfileSelector);
 
-  const handleTimePreferenceChange = (key) => {
-    setTimePreferences({
-      ...timePreferences,
-      [key]: !timePreferences[key],
-    });
+  const handleTimePrefChange = (text) => {
+    dispatch(updateUserProfileTimePrefs(text));
   };
-
-  const handleMusicPreferenceChange = (key) => {
-    setMusicPreference({
-      ...musicPreference,
-      [key]: !musicPreference[key],
-    });
+  const handleMusicPrefChange = (text) => {
+    dispatch(updateUserProfileMusicPrefs(text));
+  };
+  const handleStageChange = () => {
+    dispatch(updateUserProfileStage("4"));
   };
 
   return (
@@ -36,29 +35,29 @@ function SignupScreen3({ navigation }) {
         <Text style={styles.title}>Time Preferences</Text>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={timePreferences.weekendDaytime}
-            onValueChange={() => handleTimePreferenceChange("weekendDaytime")}
+            value={userProfile.timePrefs.weekendDaytime}
+            onValueChange={() => handleTimePrefChange("weekendDaytime")}
           />
           <Text>Weekend Daytime</Text>
         </View>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={timePreferences.weekendTwilight}
-            onValueChange={() => handleTimePreferenceChange("weekendTwilight")}
+            value={userProfile.timePrefs.weekendTwilight}
+            onValueChange={() => handleTimePrefChange("weekendTwilight")}
           />
           <Text>Weekend Twilight</Text>
         </View>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={timePreferences.weekdayDaytime}
-            onValueChange={() => handleTimePreferenceChange("weekdayDaytime")}
+            value={userProfile.timePrefs.weekdayDaytime}
+            onValueChange={() => handleTimePrefChange("weekdayDaytime")}
           />
           <Text>Weekday Daytime</Text>
         </View>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={timePreferences.weekdayTwilight}
-            onValueChange={() => handleTimePreferenceChange("weekdayTwilight")}
+            value={userProfile.timePrefs.weekdayTwilight}
+            onValueChange={() => handleTimePrefChange("weekdayTwilight")}
           />
           <Text>Weekday Twilight</Text>
         </View>
@@ -67,28 +66,31 @@ function SignupScreen3({ navigation }) {
         <Text style={styles.title}>Music?</Text>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={musicPreference.definitely}
-            onValueChange={() => handleMusicPreferenceChange("definitely")}
+            value={userProfile.musicPrefs.must}
+            onValueChange={() => handleMusicPrefChange("must")}
           />
           <Text>Definitely</Text>
         </View>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={musicPreference.indifferent}
-            onValueChange={() => handleMusicPreferenceChange("indifferent")}
+            value={userProfile.musicPrefs.indifferent}
+            onValueChange={() => handleMusicPrefChange("indifferent")}
           />
           <Text>Indifferent</Text>
         </View>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={musicPreference.noMusic}
-            onValueChange={() => handleMusicPreferenceChange("noMusic")}
+            value={userProfile.musicPrefs.none}
+            onValueChange={() => handleMusicPrefChange("none")}
           />
           <Text>No Music At All</Text>
         </View>
       </View>
       <Pressable
-        onPress={() => navigation.navigate("SignupScreen4")}
+        onPress={() => {
+          handleStageChange();
+          navigation.navigate("SignupScreen4");
+        }}
         style={styles.button}
       >
         <Text style={styles.buttonText}>Next</Text>

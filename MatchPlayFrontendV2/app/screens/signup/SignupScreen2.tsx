@@ -1,11 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TextInput, View, StyleSheet, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  putUpdateUserProfile,
+  updateUserProfileCourseDescription,
+  updateUserProfileHandicap,
+  updateUserProfileSelfDescription,
+  updateUserProfileStage,
+  userProfileSelector,
+} from "../../slices/userProfile";
 
 function SignupScreen2({ navigation }) {
-  const [handicap, setHandicap] = useState("");
-  const [courseDescription, setCourseDescription] = useState("");
-  const [selfDescription, setSelfDescription] = useState("");
+  const dispatch = useDispatch();
+
+  const {
+    userProfile,
+    loading: profileLoading,
+    hasErrors: profileHasErrors,
+  } = useSelector(userProfileSelector);
+
+  const handleHandicapChange = (text) => {
+    dispatch(updateUserProfileHandicap(Number(text)));
+  };
+  const handleCourseChange = (text) => {
+    dispatch(updateUserProfileCourseDescription(text));
+  };
+  const handleSelfChange = (text) => {
+    dispatch(updateUserProfileSelfDescription(text));
+  };
+  const handleStageChange = () => {
+    dispatch(updateUserProfileStage("3"));
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -14,8 +40,8 @@ function SignupScreen2({ navigation }) {
         <Text style={styles.label}>Handicap</Text>
         <TextInput
           style={styles.input}
-          value={handicap}
-          onChangeText={setHandicap}
+          value={userProfile.handicap.toString()}
+          onChangeText={handleHandicapChange}
           keyboardType="numeric"
           placeholder="Enter Handicap"
         />
@@ -24,8 +50,8 @@ function SignupScreen2({ navigation }) {
         <Text style={styles.label}>Tell Us About the Courses You Play!</Text>
         <TextInput
           style={[styles.input, { height: 100 }]}
-          value={courseDescription}
-          onChangeText={setCourseDescription}
+          value={userProfile.courseDescription}
+          onChangeText={handleCourseChange}
           multiline
         />
       </View>
@@ -33,13 +59,16 @@ function SignupScreen2({ navigation }) {
         <Text style={styles.label}>Describe Yourself</Text>
         <TextInput
           style={[styles.input, { height: 100 }]}
-          value={selfDescription}
-          onChangeText={setSelfDescription}
+          value={userProfile.selfDescription}
+          onChangeText={handleSelfChange}
           multiline
         />
       </View>
       <Pressable
-        onPress={() => navigation.navigate("SignupScreen3")}
+        onPress={() => {
+          handleStageChange();
+          navigation.navigate("SignupScreen3");
+        }}
         style={styles.button}
       >
         <Text style={styles.buttonText}>Next</Text>
