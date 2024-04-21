@@ -10,7 +10,7 @@ const {
 const router = express.Router();
 
 router.get("/:id", get_user_by_id_controller);
-router.get("/compatible/:id", get_compatible_user_controller);
+router.get("/:id/compatible", get_compatible_user_controller);
 router.put("/update", update_user_controller);
 
 router.post("/", insert_user_controller);

@@ -2,7 +2,7 @@ const {
   get_user_by_id_repository,
   insert_user_repository,
   update_user_by_id_repository,
-} = require("../repository/users.respository");
+} = require("../repositories/users.repository");
 const { get_compatible_user_service } = require("../services/users.service");
 
 const get_user_by_id_controller = async (req, res) => {
