@@ -29,7 +29,7 @@ const ReadyToEnter = ({ navigation }) => {
           <Text style={styles.text}>Ready?</Text>
         </View>
         <Pressable
-          onPress={() => navigation.navigate("HomeScreen")}
+          onPress={() => navigation.navigate("GenCompScreen")}
           style={styles.button}
         >
           <Text style={buttonStyles.text}>Click to Enter Match Play</Text>
