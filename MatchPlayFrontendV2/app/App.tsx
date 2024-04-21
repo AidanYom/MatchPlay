@@ -21,6 +21,13 @@ import SignupScreen3 from "./screens/signup/SignupScreen3";
 import SignupScreen4 from "./screens/signup/SignupScreen4";
 import ReadyToEnter from "./screens/signup/ReadyToEnter";
 
+import ChatScreen from "./screens/chat/Chats";
+import MessageScreen from "./screens/chat/Messages";
+
+import SwipeScreen from "./screens/swipe/SwipeScreen";
+import GenCompScreen from "./screens/swipe/GenCompScreen";
+import NoCompScreen from "./screens/swipe/NoCompScreen";
+
 export const App: React.FC = () => {
   const Stack = createNativeStackNavigator();
 
@@ -89,12 +96,25 @@ export const App: React.FC = () => {
         <Stack.Screen
           name="ReadyToEnter"
           component={ReadyToEnter}
-          options={{
-            header: () => (
-              <CustomHeader backAvailable={true} logoutAvailable={true} />
-            ),
-          }}
-          // options={{ headerShown: false }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ChatScreen"
+          component={ChatScreen}
+          options={{ title: "Matches" }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="MessageScreen"
+          component={MessageScreen}
+          options={{}}
+        ></Stack.Screen>
+        <Stack.Screen name="SwipeScreen" component={SwipeScreen}></Stack.Screen>
+        <Stack.Screen
+          name="GenCompScreen"
+          component={GenCompScreen}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="NoCompScreen"
+          component={NoCompScreen}
         ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

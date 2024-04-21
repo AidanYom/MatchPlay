@@ -159,24 +159,61 @@ const compatibility_score = (user1, user2) => {
 
 const get_compatible_user_service = async (userID) => {
   const user1 = await get_user_by_id_repository(userID);
-  compatibilityScore = 0;
+  let compatibilityScore = 0;
+  let userCounter = 0;
   let user2;
   while (compatibilityScore < 5) {
     let user2_sample = await get_random_user();
     user2 = user2_sample[0];
     if (JSON.stringify(user1._id) != JSON.stringify(user2._id)) {
       if (
-        user2.likes.indexOf(user1.email) > -1 ||
-        user2.dislikes.indexOf(user1.email) > -1
+        !(
+          user1.likes.includes(user2._id) ||
+          user1.dislikes.includes(user2._id) ||
+          user1.matches.includes(user2._id)
+        )
       ) {
         compatibilityScore = compatibility_score(user1, user2);
       }
+    }
+
+    if (++userCounter > 10) {
+      return null;
     }
   }
 
   return user2;
 };
 
+const dup_user = (users, user) => {
+  const existingIds = users.map((existingUser) => existingUser._id.toString());
+
+  if (!existingIds.includes(user._id.toString())) {
+    return true;
+  }
+
+  return false;
+};
+
+const get_multiple_compatible_service = async (userID) => {
+  const users = [];
+  let userCounter = 0;
+  while (users.length < 10 && userCounter < 10) {
+    const user = await get_compatible_user_service(userID);
+
+    if (user == null) {
+      break;
+    } else if (dup_user(users, user)) {
+      users.push(user);
+    } else {
+      ++userCounter;
+    }
+  }
+
+  return users;
+};
+
 module.exports = {
   get_compatible_user_service,
+  get_multiple_compatible_service,
 };
