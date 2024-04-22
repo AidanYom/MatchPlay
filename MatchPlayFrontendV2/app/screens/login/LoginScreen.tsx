@@ -6,7 +6,9 @@ import {
   TextInput,
   Pressable,
   SafeAreaView,
+  Platform,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import colors from "../../styles/colors";
 import { shadows } from "../../styles/shadows";
@@ -32,7 +34,10 @@ export const LoginScreen = () => {
       colors={["#FFFFFF", "#29692E"]} // Green to white gradient
       style={styles.background}
     >
-      <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <Image
           style={styles.logo}
           source={require("../../assets/whole_logo.png")}
@@ -93,7 +98,7 @@ export const LoginScreen = () => {
             <Text style={buttonStyles.text}>Register</Text>
           </Pressable>
         </View>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
     </LinearGradient>
   );
 };
@@ -108,8 +113,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   logo: {
-    marginTop: 80,
-    marginBottom: 50,
+    marginTop: 50,
+    marginBottom: 40,
   },
   //
   //
@@ -140,7 +145,7 @@ const styles = StyleSheet.create({
   },
 
   buttons: {
-    marginTop: 16,
+    marginTop: 30,
     flexDirection: "row",
   },
 

@@ -1,6 +1,7 @@
 const {
   get_user_by_id_repository,
   insert_user_repository,
+  update_user_by_id_repository,
 } = require("../repositories/users.repository");
 const {
   get_compatible_user_service,
@@ -14,6 +15,21 @@ const get_user_by_id_controller = async (req, res) => {
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json(error);
+  }
+};
+
+const update_user_controller = async (req, res) => {
+  try {
+    userId = req.body._id;
+    set = req.body;
+    delete set._id;
+
+    await update_user_by_id_repository(userId, set);
+
+    res.status(200).json({ message: "Document updated successfully" });
+  } catch (error) {
+    console.error("Error updating document:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -51,5 +67,6 @@ module.exports = {
   get_user_by_id_controller,
   insert_user_controller,
   get_compatible_user_controller,
+  update_user_controller,
   get_multiple_compatible_controller,
 };

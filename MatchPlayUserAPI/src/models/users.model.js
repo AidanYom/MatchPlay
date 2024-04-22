@@ -28,6 +28,14 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    courseDescription: {
+      type: String,
+      required: true,
+    },
+    selfDescription: {
+      type: String,
+      required: true,
+    },
     playingRange: {
       lower: { type: Number, required: true },
       upper: { type: Number, required: true },
@@ -68,6 +76,10 @@ const userSchema = new Schema(
         ref: "User",
       },
     ],
+    stage: {
+      type: String,
+      required: true,
+    },
   },
   { collection: "user_profiles" }
 );

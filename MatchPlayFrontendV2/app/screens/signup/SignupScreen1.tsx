@@ -9,21 +9,58 @@ import {
 } from "react-native";
 import PhoneInput from "react-native-phone-input";
 import DatePicker from "react-native-date-picker";
+import {
+  userProfileSelector,
+  updateUserProfileName,
+  updateUserProfilePhone,
+  updateUserProfileGender,
+  updateUserProfileBirthday,
+  updateUserProfileStage,
+} from "../../slices/userProfile";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignupScreen1 = ({ navigation }) => {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [gender, setGender] = useState("");
-  const [birthday, setBirthday] = useState(new Date());
+  const dispatch = useDispatch();
+
+  const {
+    userProfile,
+    loading: profileLoading,
+    hasErrors: profileHasErrors,
+  } = useSelector(userProfileSelector);
+
+  const handleNameChange = (text) => {
+    dispatch(updateUserProfileName(text));
+  };
+  const handlePhoneChange = (text) => {
+    dispatch(updateUserProfilePhone(text));
+  };
+  const handleGenderChange = (text) => {
+    dispatch(updateUserProfileGender(text));
+  };
+  const handleBirthdayChange = (text) => {
+    dispatch(updateUserProfileBirthday(text.toString()));
+  };
+  const handleStageChange = () => {
+    dispatch(updateUserProfileStage("2"));
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Profile Creation</Text>
-
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Name</Text>
+        <TextInput
+          onChangeText={handleNameChange}
+          value={userProfile.name}
+          style={styles.input}
+        />
+      </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Phone Number</Text>
         <PhoneInput
-          onChangePhoneNumber={setPhoneNumber}
+          onChangePhoneNumber={handlePhoneChange}
           initialCountry="us"
+          initialValue={userProfile.phoneNumber}
           style={styles.input}
         />
       </View>
@@ -32,8 +69,8 @@ const SignupScreen1 = ({ navigation }) => {
         <Text style={styles.label}>Gender</Text>
         <TextInput
           style={styles.input}
-          value={gender}
-          onChangeText={setGender}
+          value={userProfile.gender}
+          onChangeText={handleGenderChange}
           placeholder="Gender"
         />
       </View>
@@ -43,13 +80,18 @@ const SignupScreen1 = ({ navigation }) => {
         <DatePicker
           style={styles.input}
           mode="date"
-          date={birthday}
-          onDateChange={setBirthday}
+          date={
+            userProfile.birthday ? new Date(userProfile.birthday) : new Date()
+          }
+          onDateChange={handleBirthdayChange}
         />
       </View>
 
       <Pressable
-        onPress={() => navigation.navigate("SignupScreen2")}
+        onPress={() => {
+          handleStageChange();
+          navigation.navigate("SignupScreen2");
+        }}
         style={styles.button}
       >
         <Text style={styles.buttonText}>Next</Text>
