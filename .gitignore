@@ -34,4 +34,5 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 MatchPlayUserAPI/.env
+MatchPlayFrontendV2/.env
 MatchPlayUserAPI/coverage
