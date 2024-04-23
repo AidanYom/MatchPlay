@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import UserChat from "../../components/UserChat";
 import { useUser } from "@realm/react";
+import Config from "react-native-config";
 
 const ChatScreen = ({ navigation }) => {
   const [matches, setMatches] = useState([]);
@@ -10,7 +11,7 @@ const ChatScreen = ({ navigation }) => {
     const matchesList = async () => {
       try {
         const response = await fetch(
-          `http://192.168.4.145:3000/chats/matches/${user.id}`
+          Config.API_URL + `chats/matches/${user.id}`
         );
         const data = await response.json();
 

@@ -9,6 +9,7 @@ import React, {
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute, useFocusEffect } from "@react-navigation/native";
 import { useUser } from "@realm/react";
+import Config from "react-native-config";
 
 const GenCompScreen = ({ navigation }) => {
   const [potentialMatch, setPotentialMatch] = useState([]);
@@ -19,7 +20,7 @@ const GenCompScreen = ({ navigation }) => {
   const compatibleUsers = async () => {
     try {
       const response = await fetch(
-        `http://192.168.4.145:3000/users/${user.id}/compatible/multiple`
+        Config.API_URL + `users/${user.id}/compatible/multiple`
       );
 
       const data = await response.json();

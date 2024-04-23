@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useUser } from "@realm/react";
 import { UserProfileInitialState } from "../models/UserProfile";
+import Config from "react-native-config";
 
 const base_url = "http://192.168.4.145:3000/";
 
@@ -120,7 +121,7 @@ export function fetchUserProfile(userId) {
     dispatch(getUserProfile());
 
     try {
-      const url = `${base_url}users/${userId}`;
+      const url = Config.API_URL + `users/${userId}`;
       const options = {
         method: "GET",
         headers: {
@@ -142,7 +143,7 @@ export function putUpdateUserProfile(userProfile) {
     dispatch(updateUserProfile());
 
     try {
-      const url = `${base_url}users/update`;
+      const url = Config.API_URL + `users/update`;
       const options = {
         method: "PUT",
         headers: {

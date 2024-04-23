@@ -21,6 +21,7 @@ import Card from "../../components/Card";
 import Footer from "../../components/Footer";
 import { useRoute } from "@react-navigation/native";
 import { useUser } from "@realm/react";
+import Config from "react-native-config";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -111,9 +112,9 @@ const SwipeScreen = ({ navigation }) => {
     try {
       let link;
       if (like == 1) {
-        link = `http://192.168.4.145:3000/likes/${user.id}/${recepientId}/like`;
+        link = Config.API_URL + `likes/${user.id}/${recepientId}/like`;
       } else if (like == -1) {
-        link = `http://192.168.4.145:3000/likes/${user.id}/${recepientId}/dislike`;
+        link = Config.API_URL + `likes/${user.id}/${recepientId}/dislike`;
       }
 
       const response = await fetch(link);

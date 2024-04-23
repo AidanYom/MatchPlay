@@ -23,6 +23,7 @@ import { Entypo } from "@expo/vector-icons";
 import EmojiSelector from "react-native-emoji-selector";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useUser } from "@realm/react";
+import Config from "react-native-config";
 
 const MessageScreen = ({ navigation }) => {
   const [showEmojiSelector, setShowEmojiSelector] = useState(false);
@@ -56,7 +57,7 @@ const MessageScreen = ({ navigation }) => {
   const fetchMessages = async () => {
     try {
       const response = await fetch(
-        `http://192.168.4.145:3000/chats/messages/${user.id}/${recepientId}`
+        Config.API_URL + `chats/messages/${user.id}/${recepientId}`
       );
       const data = await response.json();
 
@@ -75,9 +76,7 @@ const MessageScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchRecepientData = async () => {
       try {
-        const response = await fetch(
-          `http://192.168.4.145:3000/users/${recepientId}`
-        );
+        const response = await fetch(Config.API_URL + `users/${recepientId}`);
 
         const data = await response.json();
 
@@ -98,7 +97,7 @@ const MessageScreen = ({ navigation }) => {
         messageText: message,
       };
 
-      const response = await fetch("http://192.168.4.145:3000/chats/messages", {
+      const response = await fetch(Config.API_URL + "chats/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(messageObject),

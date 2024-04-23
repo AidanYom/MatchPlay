@@ -1,9 +1,7 @@
+const { update_like_repository } = require("../repositories/likes.repository");
 const {
-  update_like_repository,
-} = require("../repositories/likes.repository");
-const {
-  get_user_by_id_repository
-} = require("../repositories/users.repository")
+  get_user_by_id_repository,
+} = require("../repositories/users.repository");
 
 const add_like_service = async (user1ID, user2ID) => {
   let user1 = await get_user_by_id_repository(user1ID);
