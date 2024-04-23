@@ -36,8 +36,8 @@ const update_user_controller = async (req, res) => {
 const insert_user_controller = async (req, res) => {
   try {
     userObject = req.body;
-    await insert_user_repository(userObject);
-    res.status(200).json(req.body);
+    const user = await insert_user_repository(userObject);
+    res.status(200).json({ postId: user._id });
   } catch (error) {
     res.status(500).json(error);
   }

@@ -216,4 +216,5 @@ const get_multiple_compatible_service = async (userID) => {
 module.exports = {
   get_compatible_user_service,
   get_multiple_compatible_service,
+  compatibility_score,
 };
