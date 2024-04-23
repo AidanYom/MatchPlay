@@ -87,7 +87,7 @@ describe("Testing Endpoints", () => {
       .set("Content-Type", "application/json")
       .set("Accept", "application/json");
     expect(res.statusCode).toBe(200);
-    await User.deleteOne({ _id: res._body.postId });
+    await User.deleteOne({ _id: res._body._id });
   });
 
   test("should return a user", async () => {
