@@ -6,8 +6,8 @@ const {
 } = require("../repositories/users.repository")
 
 const add_like_service = async (user1ID, user2ID) => {
-  let user1 = await get_like_by_id_repository(user1ID);
-  let user2 = await get_like_by_id_repository(user2ID);
+  let user1 = await get_user_by_id_repository(user1ID);
+  let user2 = await get_user_by_id_repository(user2ID);
   if (user2.likes.indexOf(user1ID) > -1) {
     // Match Identified
     user2.likes.pop(user1ID);
