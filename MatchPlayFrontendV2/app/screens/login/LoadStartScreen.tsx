@@ -22,8 +22,10 @@ function LoadStartScreen({ navigation }) {
   useEffect(() => {
     dispatch(fetchUserProfile(user.id));
 
+    console.log(userProfile)
+
     if (userProfile.stage == "5") {
-      navigation.navigate("HomeScreen");
+      navigation.navigate("GenCompScreen");
     } else {
       navigation.navigate(`SignupScreen${userProfile.stage}`);
     }

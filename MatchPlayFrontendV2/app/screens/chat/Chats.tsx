@@ -10,7 +10,7 @@ const ChatScreen = ({ navigation }) => {
     const matchesList = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/chats/matches/${user.id}`
+          `http://192.168.4.145:3000/chats/matches/${user.id}`
         );
         const data = await response.json();
 

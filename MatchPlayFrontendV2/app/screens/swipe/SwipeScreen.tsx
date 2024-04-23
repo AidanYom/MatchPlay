@@ -111,9 +111,9 @@ const SwipeScreen = ({ navigation }) => {
     try {
       let link;
       if (like == 1) {
-        link = `http://localhost:3000/likes/${user.id}/${recepientId}/like`;
+        link = `http://192.168.4.145:3000/likes/${user.id}/${recepientId}/like`;
       } else if (like == -1) {
-        link = `http://localhost:3000/likes/${user.id}/${recepientId}/dislike`;
+        link = `http://192.168.4.145:3000/likes/${user.id}/${recepientId}/dislike`;
       }
 
       const response = await fetch(link);
@@ -152,7 +152,7 @@ const SwipeScreen = ({ navigation }) => {
             <Card
               key={name}
               name={name}
-              image={require("../../assets/golfer.jpeg")}
+              image={require("../../assets/golfer_.png")}
               isFirst={isFirst}
               swipe={swipe}
               titleSign={titleSign}

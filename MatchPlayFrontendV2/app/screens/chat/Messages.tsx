@@ -56,7 +56,7 @@ const MessageScreen = ({ navigation }) => {
   const fetchMessages = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/chats/messages/${user.id}/${recepientId}`
+        `http://192.168.4.145:3000/chats/messages/${user.id}/${recepientId}`
       );
       const data = await response.json();
 
@@ -76,7 +76,7 @@ const MessageScreen = ({ navigation }) => {
     const fetchRecepientData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/users/${recepientId}`
+          `http://192.168.4.145:3000/users/${recepientId}`
         );
 
         const data = await response.json();
@@ -98,7 +98,7 @@ const MessageScreen = ({ navigation }) => {
         messageText: message,
       };
 
-      const response = await fetch("http://localhost:3000/chats/messages", {
+      const response = await fetch("http://192.168.4.145:3000/chats/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(messageObject),

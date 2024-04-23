@@ -96,6 +96,7 @@ export const App: React.FC = () => {
         <Stack.Screen
           name="ReadyToEnter"
           component={ReadyToEnter}
+          options={{ headerShown: false }}
         ></Stack.Screen>
         <Stack.Screen
           name="ChatScreen"
