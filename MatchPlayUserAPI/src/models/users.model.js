@@ -82,7 +82,7 @@ const userSchema = new Schema(
     },
     image: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   { collection: "user_profiles" }
