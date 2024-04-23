@@ -41,12 +41,6 @@ function SignupScreen4({ navigation }) {
     dispatch(updateUserProfileStage("5"));
   };
 
-  useEffect(() => {
-    if (userProfile.stage == "5") {
-      dispatch(putUpdateUserProfile(userProfile));
-    }
-  }, [userProfile.stage]);
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.inputContainer}>
@@ -108,10 +102,7 @@ function SignupScreen4({ navigation }) {
       <Pressable
         onPress={() => {
           handleStageChange();
-          if (userProfile.stage == "5") {
-            dispatch(putUpdateUserProfile(userProfile));
-          }
-          navigation.navigate("ReadyToEnter");
+          navigation.navigate("SignupScreen5");
         }}
         style={styles.button}
       >

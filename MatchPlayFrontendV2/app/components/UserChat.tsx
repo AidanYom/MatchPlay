@@ -13,7 +13,7 @@ const UserChat = ({ item, navigation }) => {
   const fetchMessages = async () => {
     try {
       const response = await fetch(
-        Config.API_URL + `chats/messages/${user.id}/${item._id}`
+        `http://192.168.4.145:3000/` + `chats/messages/${user.id}/${item._id}`
       );
       const data = await response.json();
 

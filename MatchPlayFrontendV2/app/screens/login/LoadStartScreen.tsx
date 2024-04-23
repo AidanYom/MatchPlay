@@ -7,6 +7,8 @@ import {
   fetchUserProfile,
   userProfileSelector,
 } from "../../slices/userProfile";
+import Config from "react-native-config";
+
 
 function LoadStartScreen({ navigation }) {
   const { logOut } = useAuth();
@@ -15,21 +17,25 @@ function LoadStartScreen({ navigation }) {
 
   const {
     userProfile,
-    loading: profileLoading,
-    hasErrors: profileHasErrors,
+    loading,
+    hasErrors,
   } = useSelector(userProfileSelector);
 
   useEffect(() => {
-    dispatch(fetchUserProfile(user.id));
+    const fetchData = async () => {
+      await dispatch(fetchUserProfile(user.id));
 
-    console.log(userProfile)
-
-    if (userProfile.stage == "5") {
-      navigation.navigate("GenCompScreen");
-    } else {
-      navigation.navigate(`SignupScreen${userProfile.stage}`);
-    }
-  }, [dispatch]);
+      if(userProfile._id){
+        if (userProfile.stage === "6") {
+          navigation.navigate("GenCompScreen");
+        } else {
+          navigation.navigate(`SignupScreen${userProfile.stage}`);
+        }
+      }
+    };
+  
+    fetchData();
+  }, [userProfile._id]);
 
   return (
     <SafeAreaView style={styles.container}>

@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet, TouchableOpacity } from "react-native";
 import React, {
   useEffect,
   useState,
@@ -8,8 +8,10 @@ import React, {
 } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute, useFocusEffect } from "@react-navigation/native";
-import { useUser } from "@realm/react";
+import { useAuth, useUser } from "@realm/react";
 import Config from "react-native-config";
+import { clearUserProfile } from "../../slices/userProfile";
+import { useDispatch } from "react-redux";
 
 const GenCompScreen = ({ navigation }) => {
   const [potentialMatch, setPotentialMatch] = useState([]);
@@ -20,7 +22,7 @@ const GenCompScreen = ({ navigation }) => {
   const compatibleUsers = async () => {
     try {
       const response = await fetch(
-        Config.API_URL + `users/${user.id}/compatible/multiple`
+        `http://192.168.4.145:3000/` + `users/${user.id}/compatible/multiple`
       );
 
       const data = await response.json();
@@ -50,11 +52,35 @@ const GenCompScreen = ({ navigation }) => {
     navigation.navigate("SwipeScreen", { potentialMatch: potentialMatch });
   }); */
 
+  const { logOut } = useAuth();
+  const dispatch = useDispatch();
+
+
+  const handleLogout = () => {
+    dispatch(clearUserProfile());
+    logOut();
+  };
+
+  const handleEditProfile = () => {
+    navigation.navigate("SignupScreen1");
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "",
+      headerTitle: "Match Play",
+      headerTitleAlign: "center",
       headerLeft: () => (
-        <Text style={{ fontSize: 16, fontWeight: "bold" }}>Match Play</Text>
+        <View style={{ flexDirection: "column", alignItems: "flex-start" }}>
+          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+            <Text style={styles.logoutText}>Logout</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.logoutButton}
+            onPress={handleEditProfile}
+          >
+            <Text style={styles.logoutText}>Edit Profile</Text>
+          </TouchableOpacity>
+        </View>
       ),
       headerRight: () => (
         <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
@@ -103,5 +129,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#ffffff",
     fontWeight: "bold",
+  },
+  logoutButton: {
+    borderRadius: 5,
+    backgroundColor: "transparent",
+    size: 6,
+    marginTop: 8,
+  },
+  logoutText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "black",
   },
 });

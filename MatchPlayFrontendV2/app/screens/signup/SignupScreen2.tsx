@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Text, TextInput, View, StyleSheet, Pressable } from "react-native";
+import {
+  Text,
+  TextInput,
+  View,
+  StyleSheet,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -34,46 +42,46 @@ function SignupScreen2({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>Tell Us More!</Text>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Handicap</Text>
-        <TextInput
-          style={styles.input}
-          value={userProfile.handicap.toString()}
-          onChangeText={handleHandicapChange}
-          keyboardType="numeric"
-          placeholder="Enter Handicap"
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Tell Us About the Courses You Play!</Text>
-        <TextInput
-          style={[styles.input, { height: 100 }]}
-          value={userProfile.courseDescription}
-          onChangeText={handleCourseChange}
-          multiline
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Describe Yourself</Text>
-        <TextInput
-          style={[styles.input, { height: 100 }]}
-          value={userProfile.selfDescription}
-          onChangeText={handleSelfChange}
-          multiline
-        />
-      </View>
-      <Pressable
-        onPress={() => {
-          handleStageChange();
-          navigation.navigate("SignupScreen3");
-        }}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>Next</Text>
-      </Pressable>
-    </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.header}>Tell Us More!</Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Handicap</Text>
+          <TextInput
+            style={styles.input}
+            value={userProfile.handicap.toString()}
+            onChangeText={handleHandicapChange}
+            keyboardType="numeric"
+            placeholder="Enter Handicap"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Tell Us About the Courses You Play!</Text>
+          <TextInput
+            style={[styles.input, { height: 50 }]}
+            value={userProfile.courseDescription}
+            onChangeText={handleCourseChange}
+            multiline
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Describe Yourself</Text>
+          <TextInput
+            style={[styles.input, { height: 50 }]}
+            value={userProfile.selfDescription}
+            onChangeText={handleSelfChange}
+            multiline
+          />
+        </View>
+        <Pressable
+          onPress={() => {
+            handleStageChange();
+            navigation.navigate("SignupScreen3");
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>Next</Text>
+        </Pressable>
+      </SafeAreaView>
   );
 }
 
@@ -81,6 +89,12 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     paddingTop: 20,
+    flex: 1,
+  },
+  avoidingView: {
+    // flex: 1,
+    // alignItems: "center",
+    // justifyContent: "flex-end",
   },
   title: {
     fontSize: 24,

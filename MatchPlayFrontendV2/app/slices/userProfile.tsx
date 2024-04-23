@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useUser } from "@realm/react";
+import { useAuth, useUser } from "@realm/react";
 import { UserProfileInitialState } from "../models/UserProfile";
 import Config from "react-native-config";
 
@@ -16,75 +16,195 @@ const userProfileSlice = createSlice({
   initialState,
   reducers: {
     getUserProfile: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     getUserProfileSuccess: (state, { payload }) => {
-      state.userProfile = payload;
-      state.loading = false;
-      state.hasErrors = false;
+      return {
+        ...state,
+        userProfile: payload,
+        loading: false,
+        hasErrors: false,
+      };
     },
     getUserProfileFailure: (state) => {
-      state.loading = false;
-      state.hasErrors = true;
+      return {
+        ...state,
+        loading: false,
+        hasErrors: true,
+      };
     },
     updateUserProfile: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     updateUserProfileSuccess: (state) => {
-      state.loading = false;
-      state.hasErrors = false;
+      return {
+        ...state,
+        loading: false,
+        hasErrors: false,
+      };
     },
     updateUserProfileFailure: (state) => {
-      state.loading = false;
-      state.hasErrors = true;
+      return {
+        ...state,
+        loading: false,
+        hasErrors: true,
+      };
     },
     updateUserProfileStage: (state, { payload }) => {
-      state.userProfile.stage =
-        parseInt(state.userProfile.stage) > parseInt(payload)
-          ? state.userProfile.stage
-          : payload;
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          stage:
+            parseInt(state.userProfile.stage) > parseInt(payload)
+              ? state.userProfile.stage
+              : payload,
+        },
+      };
     },
     updateUserProfileName: (state, { payload }) => {
-      state.userProfile.name = payload;
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          name: payload,
+        },
+      };
     },
     updateUserProfilePhone: (state, { payload }) => {
-      state.userProfile.phoneNumber = payload;
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          phoneNumber: payload,
+        },
+      };
     },
     updateUserProfileGender: (state, { payload }) => {
-      state.userProfile.gender = payload;
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          gender: payload,
+        },
+      };
     },
     updateUserProfileBirthday: (state, { payload }) => {
-      state.userProfile.birthday = payload;
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          birthday: payload,
+        },
+      };
     },
     updateUserProfileHandicap: (state, { payload }) => {
-      state.userProfile.handicap = payload;
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          handicap: payload,
+        },
+      };
     },
     updateUserProfileCourseDescription: (state, { payload }) => {
-      state.userProfile.courseDescription = payload;
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          courseDescription: payload,
+        },
+      };
     },
     updateUserProfileSelfDescription: (state, { payload }) => {
-      state.userProfile.selfDescription = payload;
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          selfDescription: payload,
+        },
+      };
     },
     updateUserProfileTimePrefs: (state, { payload }) => {
-      state.userProfile.timePrefs[payload] =
-        !state.userProfile.timePrefs[payload];
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          timePrefs: {
+            ...state.userProfile.timePrefs,
+            [payload]: !state.userProfile.timePrefs[payload],
+          },
+        },
+      };
     },
     updateUserProfileMusicPrefs: (state, { payload }) => {
-      state.userProfile.musicPrefs[payload] =
-        !state.userProfile.musicPrefs[payload];
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          musicPrefs: {
+            ...state.userProfile.musicPrefs,
+            [payload]: !state.userProfile.musicPrefs[payload],
+          },
+        },
+      };
     },
     updateUserProfileDrinkingSmoking: (state, { payload }) => {
-      state.userProfile.drinkingSmoking[payload] =
-        !state.userProfile.drinkingSmoking[payload];
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          drinkingSmoking: {
+            ...state.userProfile.drinkingSmoking,
+            [payload]: !state.userProfile.drinkingSmoking[payload],
+          },
+        },
+      };
     },
     updateUserProfilePlayingRangeMin: (state, { payload }) => {
-      state.userProfile.playingRange.lower = payload;
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          playingRange: {
+            ...state.userProfile.playingRange,
+            lower: payload,
+          },
+        },
+      };
     },
     updateUserProfilePlayingRangeMax: (state, { payload }) => {
-      state.userProfile.playingRange.upper = payload;
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          playingRange: {
+            ...state.userProfile.playingRange,
+            upper: payload,
+          },
+        },
+      };
+    },
+    updateUserProfileImage: (state, { payload }) => {
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          image: payload,
+        },
+      };
     },
     clearUserProfile: (state) => {
-      state.userProfile = UserProfileInitialState;
+      return {
+        ...state,
+        userProfile: UserProfileInitialState,
+      };
     },
   },
 });
@@ -109,6 +229,7 @@ export const {
   updateUserProfileDrinkingSmoking,
   updateUserProfilePlayingRangeMin,
   updateUserProfilePlayingRangeMax,
+  updateUserProfileImage,
   clearUserProfile,
 } = userProfileSlice.actions;
 
@@ -121,7 +242,7 @@ export function fetchUserProfile(userId) {
     dispatch(getUserProfile());
 
     try {
-      const url = Config.API_URL + `users/${userId}`;
+      const url = base_url + `users/${userId}`;
       const options = {
         method: "GET",
         headers: {
@@ -143,7 +264,7 @@ export function putUpdateUserProfile(userProfile) {
     dispatch(updateUserProfile());
 
     try {
-      const url = Config.API_URL + `users/update`;
+      const url = base_url + `users/update`;
       const options = {
         method: "PUT",
         headers: {

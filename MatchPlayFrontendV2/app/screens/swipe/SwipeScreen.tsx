@@ -7,6 +7,7 @@ import {
   Animated,
   PanResponder,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import React, {
   useContext,
@@ -20,8 +21,10 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Card from "../../components/Card";
 import Footer from "../../components/Footer";
 import { useRoute } from "@react-navigation/native";
-import { useUser } from "@realm/react";
+import { useAuth, useUser } from "@realm/react";
 import Config from "react-native-config";
+import { clearUserProfile } from "../../slices/userProfile";
+import { useDispatch } from "react-redux";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -112,9 +115,9 @@ const SwipeScreen = ({ navigation }) => {
     try {
       let link;
       if (like == 1) {
-        link = Config.API_URL + `likes/${user.id}/${recepientId}/like`;
+        link = `http://192.168.4.145:3000/` + `likes/${user.id}/${recepientId}/like`;
       } else if (like == -1) {
-        link = Config.API_URL + `likes/${user.id}/${recepientId}/dislike`;
+        link = `http://192.168.4.145:3000/` + `likes/${user.id}/${recepientId}/dislike`;
       }
 
       const response = await fetch(link);
@@ -124,11 +127,38 @@ const SwipeScreen = ({ navigation }) => {
     }
   };
 
+  const { logOut } = useAuth();
+  const dispatch = useDispatch();
+
+
+  const handleLogout = () => {
+    dispatch(clearUserProfile());
+    logOut();
+  };
+
+  const handleEditProfile = () => {
+    navigation.navigate('SignupScreen1');
+  }
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "",
+      headerTitle: "Match Play",
+      headerTitleAlign: "center",
       headerLeft: () => (
-        <Text style={{ fontSize: 16, fontWeight: "bold" }}>Match Play</Text>
+        <View style={{ flexDirection: "column", alignItems: "flex-start" }}>
+          <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={handleLogout}
+            >
+              <Text style={styles.logoutText}>Logout</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={handleEditProfile}
+            >
+              <Text style={styles.logoutText}>Edit Profile</Text>
+            </TouchableOpacity>
+        </View>
       ),
       headerRight: () => (
         <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
@@ -146,14 +176,15 @@ const SwipeScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, alignItems: "center", backgroundColor: "white" }}>
       {users
-        .map(({ name }, index) => {
+        .map(({ name, selfDescription, image }, index) => {
           const isFirst = index == 0;
           const dragHandlers = isFirst ? panResponder.panHandlers : {};
           return (
             <Card
               key={name}
               name={name}
-              image={require("../../assets/golfer_.png")}
+              selfDescription={selfDescription}
+              image={image}
               isFirst={isFirst}
               swipe={swipe}
               titleSign={titleSign}
@@ -166,5 +197,24 @@ const SwipeScreen = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    color: "#000000",
+    fontWeight: "bold",
+  },
+  logoutButton: {
+    borderRadius: 5,
+    backgroundColor: "transparent",
+    size: 6,
+    marginTop: 8,
+  },
+  logoutText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "black",
+  },
+});
 
 export default SwipeScreen;

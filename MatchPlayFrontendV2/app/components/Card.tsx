@@ -14,7 +14,15 @@ import { userProfileSelector } from "../slices/userProfile";
 
 const { width, height } = Dimensions.get("screen");
 
-const Card = ({ name, image, isFirst, swipe, titleSign, ...rest }) => {
+const Card = ({
+  name,
+  selfDescription,
+  image,
+  isFirst,
+  swipe,
+  titleSign,
+  ...rest
+}) => {
   const {
     userProfile,
     loading: profileLoading,
@@ -72,7 +80,17 @@ const Card = ({ name, image, isFirst, swipe, titleSign, ...rest }) => {
       {...rest}
     >
       <View style={styles.data}>
-        <Image source={image} style={styles.image} />
+        {image ? (
+          <Image
+            source={{ uri: `data:image/jpeg;base64,${image}` }}
+            style={styles.image}
+          />
+        ) : (
+          <Image
+            source={require("../assets/golfer_.png")}
+            style={styles.image}
+          />
+        )}
 
         <LinearGradient
           colors={["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.5)"]}
@@ -80,6 +98,11 @@ const Card = ({ name, image, isFirst, swipe, titleSign, ...rest }) => {
         >
           <View style={styles.userContainer}>
             <Text style={styles.name}>{name}</Text>
+            <Text style={styles.content}>
+              {selfDescription.length < 110
+                ? selfDescription
+                : selfDescription.slice(0, 110) + "..."}
+            </Text>
           </View>
         </LinearGradient>
       </View>
@@ -89,11 +112,19 @@ const Card = ({ name, image, isFirst, swipe, titleSign, ...rest }) => {
 };
 
 const styles = StyleSheet.create({
+  content: {
+    fontSize: 15,
+    color: "white",
+    fontWeight: "400",
+    width: 200,
+  },
   data: {
     display: "flex",
     justifyContent: "flex-end",
     flex: 1,
     paddingTop: 10,
+    paddingBottom: 20,
+    backgroundColor: "white",
   },
   container: {
     position: "absolute",
@@ -101,8 +132,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: width * 0.9,
-    height: height * 0.74,
-    // borderRadius: 20,
+    height: height * 0.72,
     resizeMode: "contain",
   },
   gradient: {
@@ -114,12 +144,11 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
   },
-
   userContainer: {
     position: "absolute",
     bottom: 24,
     left: 24,
-    paddingBottom: 100,
+    paddingBottom: 120,
   },
   name: {
     fontSize: 30,
