@@ -38,66 +38,69 @@ export const LoginScreen = () => {
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <Image
-          style={styles.logo}
-          source={require("../../assets/whole_logo.png")}
-        />
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            autoComplete="email"
-            textContentType="emailAddress"
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder="Email"
+        <View style={styles.content}>
+          <Image
+            style={styles.logo}
+            source={require("../../assets/whole_logo.png")}
           />
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              value={email}
+              onChangeText={setEmail}
+              autoComplete="email"
+              textContentType="emailAddress"
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="Email"
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              autoComplete="password"
+              textContentType="password"
+              placeholder="Password"
+            />
+          </View>
+
+          {result?.error?.operation ===
+            AuthOperationName.LogInWithEmailPassword && (
+            <Text style={[styles.error]}>
+              There was an error logging in, please try again{" "}
+            </Text>
+          )}
+
+          {result?.error?.operation === AuthOperationName.Register && (
+            <Text style={[styles.error]}>
+              There was an error registering, please try again
+            </Text>
+          )}
+
+          <View style={styles.buttons}>
+            <Pressable
+              onPress={() => {
+                logInWithEmailPassword({ email, password });
+              }}
+              style={[styles.button, result.pending && styles.buttonDisabled]}
+              disabled={result.pending}
+            >
+              <Text style={buttonStyles.text}>Login</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={() => register({ email, password })}
+              style={[styles.button, result.pending && styles.buttonDisabled]}
+              disabled={result.pending}
+            >
+              <Text style={buttonStyles.text}>Register</Text>
+            </Pressable>
+          </View>
         </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            autoComplete="password"
-            textContentType="password"
-            placeholder="Password"
-          />
-        </View>
-
-        {result?.error?.operation ===
-          AuthOperationName.LogInWithEmailPassword && (
-          <Text style={[styles.error]}>
-            There was an error logging in, please try again{" "}
-          </Text>
-        )}
-
-        {result?.error?.operation === AuthOperationName.Register && (
-          <Text style={[styles.error]}>
-            There was an error registering, please try again
-          </Text>
-        )}
-
-        <View style={styles.buttons}>
-          <Pressable
-            onPress={() => {
-              logInWithEmailPassword({ email, password });
-            }}
-            style={[styles.button, result.pending && styles.buttonDisabled]}
-            disabled={result.pending}
-          >
-            <Text style={buttonStyles.text}>Login</Text>
-          </Pressable>
-
-          <Pressable
-            onPress={() => register({ email, password })}
-            style={[styles.button, result.pending && styles.buttonDisabled]}
-            disabled={result.pending}
-          >
-            <Text style={buttonStyles.text}>Register</Text>
-          </Pressable>
-        </View>
+        <View style={{ flex: 1 }} />
       </KeyboardAvoidingView>
     </LinearGradient>
   );
@@ -107,20 +110,24 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
   },
+  content: {
+    flex: 6,
+    alignItems: "center",
+    justifyContent: "flex-end"
+  },
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "flex-end",
   },
   logo: {
     marginTop: 50,
-    marginBottom: 40,
+    marginBottom: 0,
   },
-  //
-  //
-  //
   inputContainer: {
     padding: 10,
+    paddingHorizontal: 30,
+    paddingTop: 0,
     alignSelf: "stretch",
     marginHorizontal: 10,
   },

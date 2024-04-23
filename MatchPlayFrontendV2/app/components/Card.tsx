@@ -9,10 +9,26 @@ import {
 import React, { Fragment, useCallback } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import Choice from "./Choice";
+import { useSelector } from "react-redux";
+import { userProfileSelector } from "../slices/userProfile";
 
 const { width, height } = Dimensions.get("screen");
 
-const Card = ({ name, image, isFirst, swipe, titleSign, ...rest }) => {
+const Card = ({
+  name,
+  selfDescription,
+  image,
+  isFirst,
+  swipe,
+  titleSign,
+  ...rest
+}) => {
+  const {
+    userProfile,
+    loading: profileLoading,
+    hasErrors: profileHasErrors,
+  } = useSelector(userProfileSelector);
+
   const rotate = Animated.multiply(swipe.x, titleSign).interpolate({
     inputRange: [-100, 0, 100],
     outputRange: ["8deg", "0deg", "-8deg"],
@@ -63,37 +79,68 @@ const Card = ({ name, image, isFirst, swipe, titleSign, ...rest }) => {
       style={[styles.container, isFirst && animatedCardStyle]}
       {...rest}
     >
-      <Image source={image} style={styles.image} />
-      <LinearGradient
-        colors={["transparent", "rbga(0,0,0,.9)"]}
-        style={styles.gradient}
-      >
-        <View style={styles.userContainer}>
-          <Text style={styles.name}>{name}</Text>
-        </View>
-      </LinearGradient>
+      <View style={styles.data}>
+        {image ? (
+          <Image
+            source={{ uri: `data:image/jpeg;base64,${image}` }}
+            style={styles.image}
+          />
+        ) : (
+          <Image
+            source={require("../assets/golfer_.png")}
+            style={styles.image}
+          />
+        )}
+
+        <LinearGradient
+          colors={["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.5)"]}
+          style={styles.gradient}
+        >
+          <View style={styles.userContainer}>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.content}>
+              {selfDescription.length < 110
+                ? selfDescription
+                : selfDescription.slice(0, 110) + "..."}
+            </Text>
+          </View>
+        </LinearGradient>
+      </View>
       {isFirst && renderChoice()}
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
+  content: {
+    fontSize: 15,
+    color: "white",
+    fontWeight: "400",
+    width: 200,
+  },
+  data: {
+    display: "flex",
+    justifyContent: "flex-end",
+    flex: 1,
+    paddingTop: 10,
+    paddingBottom: 20,
+    backgroundColor: "white",
+  },
   container: {
     position: "absolute",
     top: 0,
   },
   image: {
     width: width * 0.9,
-    height: height * 0.78,
-    borderRadius: 20,
+    height: height * 0.72,
     resizeMode: "contain",
   },
   gradient: {
     position: "absolute",
-    bottome: 0,
+    bottom: 0,
     left: 0,
     right: 0,
-    height: 550,
+    top: 0,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
   },
@@ -101,10 +148,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 24,
     left: 24,
+    paddingBottom: 120,
   },
   name: {
     fontSize: 30,
-    color: "black",
+    color: "white",
     fontWeight: "400",
   },
   choiceContainer: {

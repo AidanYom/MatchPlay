@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@realm/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   clearUserProfile,
   putUpdateUserProfile,
@@ -30,9 +30,11 @@ const CustomHeader: React.FC<{
 
   const { logOut } = useAuth();
 
+  const dispatch = useDispatch();
+
   const handleLogout = () => {
-    putUpdateUserProfile(userProfile);
-    clearUserProfile();
+    dispatch(putUpdateUserProfile(userProfile));
+    dispatch(clearUserProfile());
     logOut();
   };
 

@@ -4,6 +4,7 @@ import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useFocusEffect } from "@react-navigation/native";
 import { useUser } from "@realm/react";
+import Config from "react-native-config";
 
 const UserChat = ({ item, navigation }) => {
   const user = useUser();
@@ -12,7 +13,7 @@ const UserChat = ({ item, navigation }) => {
   const fetchMessages = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/chats/messages/${user.id}/${item._id}`
+        `http://192.168.4.145:3000/` + `chats/messages/${user.id}/${item._id}`
       );
       const data = await response.json();
 

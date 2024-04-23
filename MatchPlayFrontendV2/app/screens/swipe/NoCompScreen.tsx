@@ -1,13 +1,44 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { clearUserProfile } from "../../slices/userProfile";
+import { useAuth } from "@realm/react";
+import { useDispatch } from "react-redux";
 
 const NoCompScreen = ({ navigation }) => {
+
+  const { logOut } = useAuth();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(clearUserProfile());
+    console.log("cleared profile")
+    logOut();
+  };
+
+  const handleEditProfile = () => {
+    navigation.navigate('SignupScreen1');
+  }
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "",
+      headerTitle: "Match Play",
+      headerTitleAlign: "center",
       headerLeft: () => (
-        <Text style={{ fontSize: 16, fontWeight: "bold" }}>Match Play</Text>
+        <View style={{ flexDirection: "column", alignItems: "flex-start" }}>
+          <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={handleLogout}
+            >
+              <Text style={styles.logoutText}>Logout</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={handleEditProfile}
+            >
+              <Text style={styles.logoutText}>Edit Profile</Text>
+            </TouchableOpacity>
+        </View>
       ),
       headerRight: () => (
         <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
@@ -51,5 +82,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#000000",
     fontWeight: "bold",
+  },
+  logoutButton: {
+    borderRadius: 5,
+    backgroundColor: "transparent",
+    size: 6,
+    marginTop: 8,
+  },
+  logoutText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "black",
   },
 });

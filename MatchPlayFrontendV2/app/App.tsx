@@ -19,6 +19,7 @@ import { OfflineModeButton } from "./components/OfflineModeButton";
 import SignupScreen2 from "./screens/signup/SignupScreen2";
 import SignupScreen3 from "./screens/signup/SignupScreen3";
 import SignupScreen4 from "./screens/signup/SignupScreen4";
+import SignupScreen5 from "./screens/signup/SignupScreen5";
 import ReadyToEnter from "./screens/signup/ReadyToEnter";
 
 import ChatScreen from "./screens/chat/Chats";
@@ -94,8 +95,18 @@ export const App: React.FC = () => {
           }}
         ></Stack.Screen>
         <Stack.Screen
+          name="SignupScreen5"
+          component={SignupScreen5}
+          options={{
+            header: () => (
+              <CustomHeader backAvailable={true} logoutAvailable={true} />
+            ),
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
           name="ReadyToEnter"
           component={ReadyToEnter}
+          options={{ headerShown: false }}
         ></Stack.Screen>
         <Stack.Screen
           name="ChatScreen"

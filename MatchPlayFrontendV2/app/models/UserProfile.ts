@@ -31,6 +31,7 @@ export const UserProfileInitialState = {
   handicap: 0,
   courseDescription: "",
   selfDescription: "",
+  image: "",
   likes: [],
   dislikes: [],
   matches: [],

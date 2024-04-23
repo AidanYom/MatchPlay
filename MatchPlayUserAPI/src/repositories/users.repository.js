@@ -9,6 +9,7 @@ const insert_user_repository = (userObject) => {
 };
 
 const update_user_by_id_repository = (id, payload) => {
+  console.log(payload)
   User.findByIdAndUpdate(id, payload)
     .then(() => {
       console.log("User updated successfully");

@@ -28,7 +28,8 @@
             "deploymentTarget": "17.4"
           }
         }
-      ]
+      ],
+      "expo-image-picker"
     ]
   }
 }
