@@ -29,6 +29,7 @@ jobs:
           touch .env
           echo MONGODB_URI = ${{secrets.MONGODB_URI_DEV}} >> .env
           echo PORT = ${{vars.PORT}} >> .env
+          echo JEST_MONGODB_URI = ${{secrets.JEST_MONGODB_URI}} >> .env
 
       - name: test
         run: npm test

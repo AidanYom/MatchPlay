@@ -5,7 +5,7 @@ const get_user_by_id_repository = (userID) => {
 };
 
 const insert_user_repository = (userObject) => {
-  User.create(userObject);
+  return User.create(userObject);
 };
 
 const update_user_by_id_repository = (id, payload) => {
