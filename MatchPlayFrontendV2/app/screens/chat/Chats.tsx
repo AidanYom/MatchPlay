@@ -11,7 +11,7 @@ const ChatScreen = ({ navigation }) => {
     const matchesList = async () => {
       try {
         const response = await fetch(
-          `http://192.168.4.145:3000/` + `chats/matches/${user.id}`
+          `https://matchplay-dev.onrender.com/` + `chats/matches/${user.id}`
         );
         const data = await response.json();
 

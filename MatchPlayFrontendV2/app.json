@@ -1,15 +1,20 @@
 {
   "expo": {
     "name": "MatchPlayFrontendV2",
-    "slug": "MatchPlayFrontendV2",
+    "slug": "match-play",
     "version": "1.0.0",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/whole_logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.aidanyom.MatchPlayFrontendV2"
+      "package": "com.aidanyom.MatchPlayFrontendV2",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "splash": {
       "image": "./app/assets/splash_logo.png",
@@ -30,6 +35,16 @@
         }
       ],
       "expo-image-picker"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ef2a7c7e-cfaf-4814-a61c-d1accc231c2f"
+      }
+    },
+    "owner": "aidanyom",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/ef2a7c7e-cfaf-4814-a61c-d1accc231c2f"
+    }
   }
 }
