@@ -39,5 +39,16 @@ Note: Endpoint in the frontend are connected to `https://matchplay-dev.onrender.
 ## Project Structure
 
 ## Features
+### Account Creation/Updating
+- Input user information and prefernces upon creation
+- Update information whenever desired
+
+### Swiping
+- Swipe right to like
+- Swipe left to dislike
+
+### Chat Service
+- Chat with matches
 
 ## Screenshots
+
