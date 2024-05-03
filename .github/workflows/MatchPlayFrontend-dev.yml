@@ -1,0 +1,24 @@
+name: MatchPlayFrontend-dev
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 21.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: "21.x"
+        cache: "npm"
+        cache-dependency-path: "./MatchPlayFrontendV2/package-lock.json"
+    - name: Install packages
+      run: npm ci
+      working-directory: ./MatchPlayFrontendV2

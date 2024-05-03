@@ -1,0 +1,367 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "MatchPlayAPI",
+    "description": "REST API for MongoDB CRUD operations created with Express and documented using Swagger"
+  },
+  "servers": [
+    {
+      "url": "api_url/"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Creates a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/update": {
+      "put": {
+        "tags": ["Users"],
+        "description": "Updates a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "description": "Returns the user by id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/{id}/compatible": {
+      "get": {
+        "tags": ["Users"],
+        "description": "Returns a compatible user for the user of the id specified",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/{id}/compatible/multiple": {
+      "get": {
+        "tags": ["Users"],
+        "description": "Returns a list of compatible users for the user of the id specified",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userIdArray"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/likes/{id1}/{id2}/like": {
+      "get": {
+        "tags": ["Likes"],
+        "description": "Adds user2 to user1's likes and checks if user1 is in user2's likes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          },
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/likes/{id1}/{id2}/dislike": {
+      "get": {
+        "tags": ["Likes"],
+        "description": "Adds user2 to user1's dislikes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          },
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/chats/matches/{id}": {
+      "get": {
+        "tags": ["Likes"],
+        "description": "Returns the user's matches",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userIdArray"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/chats/messages/{senderId}/{recipientId}": {
+      "get": {
+        "tags": ["Messages"],
+        "description": "Returns the messages between the sender and the recipient",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          },
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageArray"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/messages": {
+      "post": {
+        "tags": ["Messages"],
+        "description": "Creates a new message",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "name": { "type": "string" },
+          "handicap": { "type": "number" },
+          "phoneNumber": { "type": "string" },
+          "gender": { "type": "string" },
+          "email": { "type": "string" },
+          "birthday": { "type": "string" },
+          "courseDescription": { "type": "string" },
+          "selfDescription": { "type": "string" },
+          "playingRange": {
+            "type": "object",
+            "properties": {
+              "lower": { "type": "number" },
+              "upper": { "type": "number" }
+            }
+          },
+          "drinkingSmoking": {
+            "type": "object",
+            "properties": {
+              "drinks": { "type": "boolean" },
+              "smokes": { "type": "boolean" },
+              "neither": { "type": "boolean" },
+              "noSmokers": { "type": "boolean" },
+              "noDrinkers": { "type": "boolean" }
+            }
+          },
+          "musicPrefs": {
+            "type": "object",
+            "properties": {
+              "must": { "type": "boolean" },
+              "indifferent": { "type": "boolean" },
+              "none": { "type": "boolean" }
+            }
+          },
+          "timePrefs": {
+            "type": "object",
+            "properties": {
+              "weekendDaytime": { "type": "boolean" },
+              "weekendTwilight": { "type": "boolean" },
+              "weekdayDaytime": { "type": "boolean" },
+              "weekdayTwilight": { "type": "boolean" }
+            }
+          },
+          "likes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dislikes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "matches": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stage": { "type": "string" },
+          "image": { "type": "string" }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "senderId": { "type": "string" },
+          "recepientId": { "type": "string" },
+          "message": { "type": "string" },
+          "timeStamp": { "type": "string" }
+        }
+      },
+      "userIdArray": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "MessageArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Message",
+          "type": "object"
+        }
+      }
+    },
+    "parameters": {
+      "userIdParam": {
+        "name": "id",
+        "in": "path",
+        "description": "Id of the user",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
