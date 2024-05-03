@@ -115,9 +115,9 @@ const SwipeScreen = ({ navigation }) => {
     try {
       let link;
       if (like == 1) {
-        link = `http://192.168.4.145:3000/` + `likes/${user.id}/${recepientId}/like`;
+        link = `https://matchplay-dev.onrender.com/` + `likes/${user.id}/${recepientId}/like`;
       } else if (like == -1) {
-        link = `http://192.168.4.145:3000/` + `likes/${user.id}/${recepientId}/dislike`;
+        link = `https://matchplay-dev.onrender.com/` + `likes/${user.id}/${recepientId}/dislike`;
       }
 
       const response = await fetch(link);

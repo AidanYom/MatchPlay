@@ -57,7 +57,7 @@ const MessageScreen = ({ navigation }) => {
   const fetchMessages = async () => {
     try {
       const response = await fetch(
-        `http://192.168.4.145:3000/` + `chats/messages/${user.id}/${recepientId}`
+        `https://matchplay-dev.onrender.com/` + `chats/messages/${user.id}/${recepientId}`
       );
       const data = await response.json();
 
@@ -76,7 +76,7 @@ const MessageScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchRecepientData = async () => {
       try {
-        const response = await fetch(`http://192.168.4.145:3000/` + `users/${recepientId}`);
+        const response = await fetch(`https://matchplay-dev.onrender.com/` + `users/${recepientId}`);
 
         const data = await response.json();
 
@@ -97,7 +97,7 @@ const MessageScreen = ({ navigation }) => {
         messageText: message,
       };
 
-      const response = await fetch(`http://192.168.4.145:3000/` + "chats/messages", {
+      const response = await fetch(`https://matchplay-dev.onrender.com/` + "chats/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(messageObject),

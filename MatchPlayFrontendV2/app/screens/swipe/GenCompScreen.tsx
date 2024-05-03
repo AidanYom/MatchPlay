@@ -22,7 +22,7 @@ const GenCompScreen = ({ navigation }) => {
   const compatibleUsers = async () => {
     try {
       const response = await fetch(
-        `http://192.168.4.145:3000/` + `users/${user.id}/compatible/multiple`
+        `https://matchplay-dev.onrender.com/` + `users/${user.id}/compatible/multiple`
       );
 
       const data = await response.json();

@@ -3,7 +3,7 @@ import { useAuth, useUser } from "@realm/react";
 import { UserProfileInitialState } from "../models/UserProfile";
 import Config from "react-native-config";
 
-const base_url = "http://192.168.4.145:3000/";
+const base_url = "https://matchplay-dev.onrender.com/";
 
 export const initialState = {
   userProfile: UserProfileInitialState,
