@@ -65,6 +65,3 @@ Note: Endpoint in the frontend are connected to `https://matchplay-dev.onrender.
 
 ### Chat Service
 - Chat with matches
-
-## Screenshots
-
