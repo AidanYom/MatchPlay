@@ -1,18 +1,19 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "0.10.0",
+    "version": "1.0.0",
     "title": "MatchPlayAPI",
     "description": "REST API for MongoDB CRUD operations created with Express and documented using Swagger"
   },
   "servers": [
     {
-      "url": "localhost:3000"
+      "url": "api_url/"
     }
   ],
   "paths": {
     "/users": {
       "post": {
+        "tags": ["Users"],
         "description": "Creates a new user",
         "requestBody": {
           "content": {
@@ -25,7 +26,30 @@
         },
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/update": {
+      "put": {
+        "tags": ["Users"],
+        "description": "Updates a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK"
           },
           "500": {
             "description": "Internal Server Error"
@@ -35,6 +59,7 @@
     },
     "/users/{id}": {
       "get": {
+        "tags": ["Users"],
         "description": "Returns the user by id",
         "parameters": [
           {
@@ -56,35 +81,11 @@
             "description": "Internal Server Error"
           }
         }
-      },
-      "put": {
-        "description": "Edits the quote with a passed id",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/userIdParam"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
       }
     },
     "/users/{id}/compatible": {
       "get": {
+        "tags": ["Users"],
         "description": "Returns a compatible user for the user of the id specified",
         "parameters": [
           {
@@ -108,8 +109,35 @@
         }
       }
     },
+    "/users/{id}/compatible/multiple": {
+      "get": {
+        "tags": ["Users"],
+        "description": "Returns a list of compatible users for the user of the id specified",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userIdArray"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/likes/{id1}/{id2}/like": {
       "get": {
+        "tags": ["Likes"],
         "description": "Adds user2 to user1's likes and checks if user1 is in user2's likes",
         "parameters": [
           {
@@ -131,6 +159,7 @@
     },
     "/likes/{id1}/{id2}/dislike": {
       "get": {
+        "tags": ["Likes"],
         "description": "Adds user2 to user1's dislikes",
         "parameters": [
           {
@@ -152,6 +181,7 @@
     },
     "/chats/matches/{id}": {
       "get": {
+        "tags": ["Likes"],
         "description": "Returns the user's matches",
         "parameters": [
           {
@@ -164,7 +194,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MatchArray"
+                  "$ref": "#/components/schemas/userIdArray"
                 }
               }
             }
@@ -178,6 +208,7 @@
 
     "/chats/messages/{senderId}/{recipientId}": {
       "get": {
+        "tags": ["Messages"],
         "description": "Returns the messages between the sender and the recipient",
         "parameters": [
           {
@@ -193,7 +224,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/"
+                  "$ref": "#/components/schemas/MessageArray"
                 }
               }
             }
@@ -206,6 +237,7 @@
     },
     "/messages": {
       "post": {
+        "tags": ["Messages"],
         "description": "Creates a new message",
         "requestBody": {
           "content": {
@@ -239,6 +271,8 @@
           "gender": { "type": "string" },
           "email": { "type": "string" },
           "birthday": { "type": "string" },
+          "courseDescription": { "type": "string" },
+          "selfDescription": { "type": "string" },
           "playingRange": {
             "type": "object",
             "properties": {
@@ -290,7 +324,9 @@
             "items": {
               "type": "string"
             }
-          }
+          },
+          "stage": { "type": "string" },
+          "image": { "type": "string" }
         }
       },
       "Message": {
@@ -302,7 +338,7 @@
           "timeStamp": { "type": "string" }
         }
       },
-      "MatchArray": {
+      "userIdArray": {
         "type": "array",
         "items": {
           "type": "string"
