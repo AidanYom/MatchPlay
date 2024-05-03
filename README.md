@@ -37,7 +37,23 @@ Note: Endpoint in the frontend are connected to `https://matchplay-dev.onrender.
 - `npm run start` - runs the api
 
 ## Project Structure
-
+- MatchPlayFrontend
+  - app
+    - assets
+    - components
+    - models
+    - redux
+    - screens
+    - slices
+    - styles
+- MatchPlayUserAPI
+  - src
+    - controllers
+    - models
+    - repositories
+    - routes
+    - services
+    - tests
 ## Features
 ### Account Creation/Updating
 - Input user information and prefernces upon creation
